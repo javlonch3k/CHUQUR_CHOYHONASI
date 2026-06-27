@@ -1,34 +1,39 @@
-// ============== DATABASE (localStorage) ==============
+// ============== API HELPER ==============
 
-const DB = {
-    get(key, defaultVal) {
-        try {
-            const data = localStorage.getItem('restaurant_' + key);
-            return data ? JSON.parse(data) : defaultVal;
-        } catch {
-            return defaultVal;
-        }
-    },
-    set(key, value) {
-        localStorage.setItem('restaurant_' + key, JSON.stringify(value));
-    }
-};
+const API = '';
+
+async function apiGet(url) {
+    const res = await fetch(API + url);
+    return res.json();
+}
 
 // ============== DATA ==============
 
-function getCategories() {
-    return DB.get('categories', []);
-}
+let categories = [];
+let foods = [];
 
-function getFoods() {
-    return DB.get('foods', []);
-}
+async function loadData() {
+    try {
+        categories = await apiGet('/api/categories');
+        foods = await apiGet('/api/foods');
+        const settings = await apiGet('/api/settings');
 
-function getSettings() {
-    return DB.get('settings', {
-        name: 'CHUQUR CHOYHONASI',
-        password: 'admin123'
-    });
+        // Update title
+        const h1 = document.getElementById('site-title');
+        if (h1 && settings.name) {
+            h1.textContent = '🍽️ ' + settings.name;
+            document.title = settings.name;
+        }
+
+        renderMenu();
+    } catch (e) {
+        console.error('Ma\'lumot yuklashda xato:', e);
+        document.getElementById('menu-grid').innerHTML = `
+            <div class="empty-state">
+                <p>❌ Server bilan bog'lanib bo'lmadi</p>
+                <p>Sahifani yangilang yoki keyinroq urinib ko'ring</p>
+            </div>`;
+    }
 }
 
 // ============== TOAST ==============
@@ -51,16 +56,6 @@ function renderMenu() {
     const grid = document.getElementById('menu-grid');
     if (!nav || !grid) return;
 
-    const categories = getCategories();
-    const foods = getFoods();
-    const settings = getSettings();
-
-    // Update title
-    const h1 = document.querySelector('header h1');
-    if (h1 && settings.name) {
-        h1.textContent = '🍽️ ' + settings.name;
-    }
-
     // Render category buttons
     nav.innerHTML = '<button class="cat-btn active" data-category="all">Barchasi</button>';
     categories.forEach(cat => {
@@ -80,13 +75,11 @@ function renderMenu() {
     renderFoodGrid(foods);
 }
 
-function renderFoodGrid(foods) {
+function renderFoodGrid(foodsList) {
     const grid = document.getElementById('menu-grid');
     if (!grid) return;
 
-    const categories = getCategories();
-
-    if (foods.length === 0) {
+    if (foodsList.length === 0) {
         grid.innerHTML = `
             <div class="empty-state">
                 <p>📭 Hozircha menyu bo'sh</p>
@@ -96,7 +89,7 @@ function renderFoodGrid(foods) {
     }
 
     grid.innerHTML = '';
-    foods.forEach(food => {
+    foodsList.forEach(food => {
         const cat = categories.find(c => c.id === food.categoryId);
         const catName = cat ? `${cat.icon} ${cat.name}` : '';
 
@@ -118,7 +111,6 @@ function renderFoodGrid(foods) {
 }
 
 function filterMenu(categoryId) {
-    const foods = getFoods();
     if (categoryId === 'all') {
         renderFoodGrid(foods);
     } else {
@@ -133,5 +125,5 @@ function formatPrice(price) {
 // ============== INIT ==============
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderMenu();
+    loadData();
 });
