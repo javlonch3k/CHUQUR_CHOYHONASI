@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 15px;
+        }
+        .card {
+            background: #16213e;
+            border: 1px solid #2a2a4a;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #e94560;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .form-group input, .form-group select {
+            padding: 12px 15px;
+            border: 1px solid #2a2a4a;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 15px;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #e94560;
+            color: white;
+        }
+        .btn-back {
+            background: #2a2a4a;
+            color: #aaa;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #1a1a2e;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+        .list-item-name { font-weight: 500; }
+        .list-item-price { color: #e94560; font-weight: 600; }
+        .btn-delete {
+            background: #ff4757;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .stat-num { font-size: 28px; font-weight: 700; color: #e94560; }
+        .stat-label { font-size: 12px; color: #888; }
+        .login-error { color: #ff4757; margin-top: 10px; display: none; }
+        .info-text { color: #888; font-size: 13px; text-align: center; padding: 15px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>⚙️ Admin Panel</h1>
+            <p class="subtitle">CHUQUR CHOYHONASI boshqaruvi</p>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Login -->
+        <div id="login-section" class="card">
+            <h2>🔐 Kirish</h2>
+            <div class="form-group">
+                <input type="password" id="admin-pass" placeholder="Parolni kiriting..." />
+                <button class="btn btn-primary" onclick="login()">Kirish</button>
+            </div>
+            <p class="login-error" id="login-error">❌ Parol noto'g'ri!</p>
+        </div>
+
+        <!-- Admin Content -->
+        <div id="admin-content" style="display:none">
+            <!-- Stats -->
+            <div class="card">
+                <div class="stats-row">
+                    <div><div class="stat-num" id="s-cat">0</div><div class="stat-label">Kategoriya</div></div>
+                    <div><div class="stat-num" id="s-food">0</div><div class="stat-label">Ovqatlar</div></div>
+                </div>
+            </div>
+
+            <!-- Kategoriya -->
+            <div class="card">
+                <h2>📁 Kategoriya qo'shish</h2>
+                <div class="form-group">
+                    <input type="text" id="cat-name" placeholder="Nomi (masalan: Oshlar)" />
+                    <input type="text" id="cat-icon" placeholder="Emoji (masalan: 🍚)" maxlength="4" />
+                    <button class="btn btn-primary" onclick="addCat()">➕ Qo'shish</button>
+                </div>
+                <div id="cat-list" style="margin-top:15px"></div>
+            </div>
+
+            <!-- Ovqat -->
+            <div class="card">
+                <h2>🍽️ Ovqat qo'shish</h2>
+                <div class="form-group">
+                    <select id="food-cat"><option value="">Kategoriya tanlang...</option></select>
+                    <input type="text" id="food-name" placeholder="Ovqat nomi" />
+                    <input type="text" id="food-desc" placeholder="Tarkibi / tavsif" />
+                    <input type="number" id="food-price" placeholder="Narxi (so'm)" />
+                    <input type="text" id="food-img" placeholder="Rasm URL (ixtiyoriy)" />
+                    <button class="btn btn-primary" onclick="addFood()">➕ Qo'shish</button>
+                </div>
+            </div>
+
+            <!-- Ovqatlar -->
+            <div class="card">
+                <h2>📋 Barcha ovqatlar</h2>
+                <div id="food-list"></div>
+            </div>
+
+            <!-- Info -->
+            <div class="card">
+                <p class="info-text">
+                    ⚠️ O'zgarishlar faqat shu qurilmada saqlanadi.<br>
+                    Hamma ko'radigan qilish uchun Kiro'ga yozing — u GitHub'ga push qiladi.
+                </p>
+            </div>
+
+            <a href="index.html" class="btn btn-back" style="width:100%">🔙 Menyuga qaytish</a>
+        </div>
+    </div>
+
+    <script src="menu-data.js"></script>
+    <script>
+        const ADMIN_PASS = 'admin123';
+
+        function login() {
+            const pass = document.getElementById('admin-pass').value;
+            if (pass === ADMIN_PASS) {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                renderAdmin();
+            } else {
+                const err = document.getElementById('login-error');
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 3000);
+            }
+        }
+
+        function renderAdmin() {
+            document.getElementById('s-cat').textContent = CATEGORIES.length;
+            document.getElementById('s-food').textContent = FOODS.length;
+
+            // Categories
+            const catList = document.getElementById('cat-list');
+            catList.innerHTML = '';
+            CATEGORIES.forEach(c => {
+                catList.innerHTML += `<div class="list-item"><span>${c.icon} ${c.name}</span><span style="color:#888">${FOODS.filter(f=>f.category===c.id).length} ta</span></div>`;
+            });
+
+            // Foods
+            const foodList = document.getElementById('food-list');
+            foodList.innerHTML = '';
+            FOODS.forEach(f => {
+                const cat = CATEGORIES.find(c => c.id === f.category);
+                const catName = cat ? cat.icon + ' ' + cat.name : '';
+                foodList.innerHTML += `<div class="list-item"><div><span class="list-item-name">${f.name}</span><br><span style="color:#666;font-size:12px">${catName}</span></div><span class="list-item-price">${Number(f.price).toLocaleString()} so'm</span></div>`;
+            });
+
+            // Select
+            const sel = document.getElementById('food-cat');
+            sel.innerHTML = '<option value="">Kategoriya tanlang...</option>';
+            CATEGORIES.forEach(c => {
+                sel.innerHTML += `<option value="${c.id}">${c.icon} ${c.name}</option>`;
+            });
+        }
+
+        function addCat() {
+            const name = document.getElementById('cat-name').value.trim();
+            const icon = document.getElementById('cat-icon').value.trim() || '📂';
+            if (!name) return alert('Nom kiriting!');
+
+            alert('✅ Kategoriya: ' + icon + ' ' + name + '\n\nKiro\'ga yozing:\n"' + name + ' kategoriya qo\'sh, emoji: ' + icon + '"');
+            document.getElementById('cat-name').value = '';
+            document.getElementById('cat-icon').value = '';
+        }
+
+        function addFood() {
+            const cat = document.getElementById('food-cat').value;
+            const name = document.getElementById('food-name').value.trim();
+            const desc = document.getElementById('food-desc').value.trim();
+            const price = document.getElementById('food-price').value;
+            if (!cat || !name || !price) return alert('Barcha maydonlarni to\'ldiring!');
+
+            const catName = CATEGORIES.find(c => c.id === cat)?.name || cat;
+            alert('✅ Ovqat: ' + name + ' - ' + Number(price).toLocaleString() + ' so\'m\n\nKiro\'ga yozing:\n"' + catName + ' ga ' + name + ' qo\'sh ' + price + ' so\'m"');
+
+            document.getElementById('food-name').value = '';
+            document.getElementById('food-desc').value = '';
+            document.getElementById('food-price').value = '';
+            document.getElementById('food-img').value = '';
+        }
+    </script>
+</body>
+</html>

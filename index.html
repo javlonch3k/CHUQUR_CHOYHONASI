@@ -20,11 +20,25 @@
     </main>
 
     <footer>
-        <p>📍 Manzil: Qarshi shahri</p>
+        <p id="secret-admin" style="cursor:default">📍 Manzil: Qarshi shahri</p>
         <p>📞 Telefon: +998 XX XXX XX XX</p>
     </footer>
 
     <script src="menu-data.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Admin panel — 4 marta "Qarshi shahri" ga bossa ochiladi
+        let tapCount = 0;
+        let tapTimer = null;
+        document.getElementById('secret-admin').addEventListener('click', () => {
+            tapCount++;
+            if (tapTimer) clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
+            if (tapCount >= 4) {
+                tapCount = 0;
+                window.location.href = 'admin.html';
+            }
+        });
+    </script>
 </body>
 </html>
