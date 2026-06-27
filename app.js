@@ -1,5 +1,3 @@
-// ============== MENYU RENDERING ==============
-
 function formatPrice(price) {
     return Number(price).toLocaleString('uz-UZ');
 }
@@ -8,8 +6,8 @@ function renderMenu() {
     const nav = document.getElementById('categories-nav');
     const grid = document.getElementById('menu-grid');
 
-    // Render category buttons
-    nav.innerHTML = '<button class="cat-btn active" data-category="all">🍽️ Barchasi</button>';
+    // Render category tabs (bepul.tv style)
+    nav.innerHTML = '<button class="cat-btn active" data-category="all">Barchasi</button>';
     CATEGORIES.forEach(cat => {
         nav.innerHTML += `<button class="cat-btn" data-category="${cat.id}">${cat.icon} ${cat.name}</button>`;
     });
@@ -31,33 +29,34 @@ function renderFoodGrid(categoryId) {
     const filtered = categoryId === 'all' ? FOODS : FOODS.filter(f => f.category === categoryId);
 
     if (filtered.length === 0) {
-        grid.innerHTML = '<div class="empty-state"><p>📭 Bu kategoriyada hali ovqat yo\'q</p></div>';
+        grid.innerHTML = '<div class="empty-state">📭 Bu kategoriyada hali ovqat yo\'q</div>';
         return;
     }
 
     grid.innerHTML = '';
     filtered.forEach(food => {
         const cat = CATEGORIES.find(c => c.id === food.category);
-        const catName = cat ? `${cat.icon} ${cat.name}` : '';
+        const catIcon = cat ? cat.icon : '';
+        const catName = cat ? cat.name : '';
 
         const imageHTML = food.image
-            ? `<div class="food-image"><img src="${food.image}" alt="${food.name}"></div>`
-            : `<div class="food-image food-image-placeholder">🍽️</div>`;
+            ? `<div class="food-image"><img src="${food.image}" alt="${food.name}" onerror="this.parentElement.classList.add('food-image-placeholder');this.parentElement.innerHTML='🍽️'"></div>`
+            : `<div class="food-image food-image-placeholder">${catIcon || '🍽️'}</div>`;
 
         grid.innerHTML += `
             <div class="food-card">
+                <span class="food-badge">${formatPrice(food.price)}</span>
+                <span class="food-cat-badge">${catName}</span>
                 ${imageHTML}
                 <div class="food-info">
                     <div class="food-name">${food.name}</div>
-                    <div class="food-desc">${food.desc}</div>
-                    <div class="food-bottom">
+                    <div class="food-meta">
                         <span class="food-price">${formatPrice(food.price)} so'm</span>
-                        <span class="food-category">${catName}</span>
+                        ${food.desc ? `<span class="food-dot"></span><span class="food-desc">${food.desc}</span>` : ''}
                     </div>
                 </div>
             </div>`;
     });
 }
 
-// Init
 document.addEventListener('DOMContentLoaded', renderMenu);

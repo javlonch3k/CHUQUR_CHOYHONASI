@@ -6,43 +6,46 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1a1a2e;
-    color: #eee;
+    background: #0f0f1a;
+    color: #fff;
     min-height: 100vh;
 }
 
-/* Header */
+/* Header - bepul.tv style */
 header {
-    background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
-    padding: 35px 20px;
-    text-align: center;
+    background: #0f0f1a;
+    padding: 20px 15px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #1a1a2e;
 }
 
-header h1 {
-    font-size: 26px;
-    margin-bottom: 5px;
-    letter-spacing: 1px;
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
-.subtitle {
-    opacity: 0.85;
-    font-size: 14px;
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
 }
 
-/* Main */
-main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px 15px;
+.logo span {
+    color: #e94560;
 }
 
-/* Categories */
+/* Categories - bepul.tv style tabs */
 .categories-nav {
     display: flex;
-    gap: 8px;
+    gap: 0;
     overflow-x: auto;
-    padding: 10px 0 20px;
     -webkit-overflow-scrolling: touch;
+    border-bottom: 2px solid #1a1a2e;
 }
 
 .categories-nav::-webkit-scrollbar {
@@ -50,52 +53,94 @@ main {
 }
 
 .cat-btn {
-    padding: 10px 18px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 25px;
-    background: #16213e;
-    color: #aaa;
-    font-size: 13px;
+    background: transparent;
+    color: #888;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.3s;
-    border: 1px solid #2a2a4a;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
 }
 
-.cat-btn:hover, .cat-btn.active {
-    background: #e94560;
-    color: white;
-    border-color: #e94560;
+.cat-btn:hover {
+    color: #fff;
 }
 
-/* Menu Grid */
+.cat-btn.active {
+    color: #e94560;
+    border-bottom-color: #e94560;
+}
+
+/* Main */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 15px;
+}
+
+/* Menu Grid - bepul.tv card style */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
 }
 
-/* Food Card */
+/* Food Card - bepul.tv poster style */
 .food-card {
-    background: #16213e;
-    border-radius: 16px;
+    position: relative;
+    border-radius: 12px;
     overflow: hidden;
-    border: 1px solid #2a2a4a;
+    background: #1a1a2e;
     transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
 }
 
 .food-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+    transform: scale(1.03);
+    box-shadow: 0 8px 30px rgba(233, 69, 96, 0.3);
+}
+
+/* Badge - like HD badge on bepul.tv */
+.food-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #e94560;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+/* Category badge - like "Serial" badge */
+.food-cat-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.7);
+    color: #ccc;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    z-index: 2;
 }
 
 .food-image {
     width: 100%;
-    height: 140px;
-    background: linear-gradient(135deg, #0f3460, #16213e);
+    height: 180px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 50px;
+    position: relative;
 }
 
 .food-image img {
@@ -104,50 +149,68 @@ main {
     object-fit: cover;
 }
 
+/* Gradient overlay on image */
+.food-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(transparent, rgba(15,15,26,0.8));
+}
+
 .food-image-placeholder {
-    font-size: 45px;
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .food-info {
-    padding: 15px;
+    padding: 12px 10px;
 }
 
 .food-name {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 600;
     margin-bottom: 4px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.food-desc {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 12px;
-}
-
-.food-bottom {
+.food-meta {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #888;
 }
 
 .food-price {
-    font-size: 17px;
-    font-weight: 700;
     color: #e94560;
+    font-weight: 700;
+    font-size: 15px;
 }
 
-.food-category {
-    font-size: 11px;
+.food-dot {
+    width: 3px;
+    height: 3px;
+    background: #555;
+    border-radius: 50%;
+}
+
+.food-desc {
     color: #666;
+    font-size: 11px;
 }
 
 /* Empty */
 .empty-state {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 50px;
-    color: #666;
+    padding: 60px 20px;
+    color: #555;
     font-size: 18px;
 }
 
@@ -155,9 +218,9 @@ main {
 footer {
     text-align: center;
     padding: 30px 20px;
-    color: #666;
-    font-size: 14px;
-    border-top: 1px solid #2a2a4a;
+    color: #444;
+    font-size: 13px;
+    border-top: 1px solid #1a1a2e;
     margin-top: 40px;
 }
 
@@ -167,16 +230,26 @@ footer p {
 
 /* Mobile */
 @media (max-width: 600px) {
-    header h1 { font-size: 22px; }
-    .menu-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .food-image { height: 100px; }
-    .food-info { padding: 10px; }
-    .food-name { font-size: 14px; }
-    .food-price { font-size: 14px; }
-    .food-desc { font-size: 11px; margin-bottom: 8px; }
-    .cat-btn { padding: 8px 14px; font-size: 12px; }
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .food-image { height: 140px; }
+    .food-info { padding: 10px 8px; }
+    .food-name { font-size: 13px; }
+    .food-price { font-size: 13px; }
+    .cat-btn { padding: 10px 15px; font-size: 13px; }
+    .logo { font-size: 20px; }
 }
 
-@media (max-width: 350px) {
-    .menu-grid { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+    .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
