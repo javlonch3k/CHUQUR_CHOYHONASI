@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>⚙️ Admin Panel</h1>
+            <p class="subtitle">Menyu boshqaruvi</p>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <!-- Login -->
+        <div id="login-section" class="card">
+            <h2>🔐 Kirish</h2>
+            <div class="form-group">
+                <input type="password" id="admin-password" placeholder="Parolni kiriting..." />
+                <button class="btn btn-primary" onclick="adminLogin()">Kirish</button>
+            </div>
+            <p id="login-error" class="error-text" style="display:none">❌ Parol noto'g'ri!</p>
+        </div>
+
+        <!-- Admin Content -->
+        <div id="admin-content" style="display:none">
+            <!-- Stats -->
+            <div class="card stats-card">
+                <div class="stat-item">
+                    <span class="stat-number" id="stat-categories">0</span>
+                    <span class="stat-label">Kategoriyalar</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="stat-items">0</span>
+                    <span class="stat-label">Ovqatlar</span>
+                </div>
+            </div>
+
+            <!-- Kategoriya qo'shish -->
+            <div class="card">
+                <h2>📁 Kategoriya qo'shish</h2>
+                <div class="form-group">
+                    <input type="text" id="category-name" placeholder="Kategoriya nomi (masalan: Suyuq ovqatlar)" />
+                    <input type="text" id="category-icon" placeholder="Emoji (masalan: 🍲)" maxlength="4" />
+                    <button class="btn btn-primary" onclick="addCategory()">➕ Qo'shish</button>
+                </div>
+                <div id="categories-list" class="items-list"></div>
+            </div>
+
+            <!-- Ovqat qo'shish -->
+            <div class="card">
+                <h2>🍽️ Ovqat qo'shish</h2>
+                <div class="form-group">
+                    <select id="food-category">
+                        <option value="">Kategoriyani tanlang...</option>
+                    </select>
+                    <input type="text" id="food-name" placeholder="Ovqat nomi" />
+                    <input type="text" id="food-desc" placeholder="Tarkibi / tavsif" />
+                    <input type="number" id="food-price" placeholder="Narxi (so'm)" />
+                    <input type="text" id="food-image" placeholder="Rasm URL (ixtiyoriy)" />
+                    <button class="btn btn-primary" onclick="addFood()">➕ Qo'shish</button>
+                </div>
+            </div>
+
+            <!-- Ovqatlar ro'yxati -->
+            <div class="card">
+                <h2>📋 Barcha ovqatlar</h2>
+                <div id="foods-list" class="items-list"></div>
+            </div>
+
+            <!-- Sozlamalar -->
+            <div class="card">
+                <h2>🔧 Sozlamalar</h2>
+                <div class="form-group">
+                    <input type="text" id="restaurant-name" placeholder="Restaurant nomi" />
+                    <input type="password" id="new-password" placeholder="Yangi parol" />
+                    <button class="btn btn-secondary" onclick="saveSettings()">💾 Saqlash</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <button class="btn btn-danger" onclick="adminLogout()">🚪 Chiqish</button>
+                <a href="index.html" class="btn btn-secondary" style="margin-left:10px; text-decoration:none; display:inline-block">👁️ Menyuni ko'rish</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
