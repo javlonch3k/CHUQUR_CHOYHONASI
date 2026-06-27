@@ -3,39 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHUQUR CHOYHONASI</title>
+    <title>CHUQUR CHOYHONASI - Menyu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="header-top">
-            <div class="logo">CHUQUR<span>.MENU</span></div>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <a href="index.html" class="site-logo">CHUQUR<span class="logo-accent">.MENU</span></a>
         </div>
-        <div class="categories-nav" id="categories-nav"></div>
-    </header>
+    </div>
 
-    <main>
-        <div class="menu-grid" id="menu-grid"></div>
-    </main>
+    <!-- Navigation / Categories -->
+    <nav class="nav-bar">
+        <div class="container">
+            <div class="nav-list" id="categories-nav"></div>
+        </div>
+    </nav>
 
-    <footer>
-        <p id="secret-admin" style="cursor:default">📍 Qarshi shahri</p>
-        <p>📞 +998 XX XXX XX XX</p>
+    <!-- Content -->
+    <div class="container">
+        <div class="poster-grid" id="menu-grid"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p id="secret-admin" style="cursor:default">CHUQUR CHOYHONASI &copy; 2024 | Qarshi shahri</p>
+            <p>📞 +998 XX XXX XX XX</p>
+        </div>
     </footer>
 
     <script src="menu-data.js"></script>
     <script src="app.js"></script>
     <script>
-        let tapCount = 0;
-        let tapTimer = null;
+        let tapCount = 0, tapTimer = null;
         document.getElementById('secret-admin').addEventListener('click', () => {
             tapCount++;
             if (tapTimer) clearTimeout(tapTimer);
             tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
-            if (tapCount >= 4) {
-                tapCount = 0;
-                window.location.href = 'admin.html';
-            }
+            if (tapCount >= 4) { tapCount = 0; window.location.href = 'admin.html'; }
         });
     </script>
 </body>

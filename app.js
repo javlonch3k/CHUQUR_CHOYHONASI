@@ -6,25 +6,24 @@ function renderMenu() {
     const nav = document.getElementById('categories-nav');
     const grid = document.getElementById('menu-grid');
 
-    // Render category tabs (bepul.tv style)
-    nav.innerHTML = '<button class="cat-btn active" data-category="all">Barchasi</button>';
+    // Navigation links (bepul.tv style)
+    nav.innerHTML = '<span class="nav-link active" data-category="all">Barchasi</span>';
     CATEGORIES.forEach(cat => {
-        nav.innerHTML += `<button class="cat-btn" data-category="${cat.id}">${cat.icon} ${cat.name}</button>`;
+        nav.innerHTML += `<span class="nav-link" data-category="${cat.id}">${cat.icon} ${cat.name}</span>`;
     });
 
-    // Category click handlers
-    nav.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            nav.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderFoodGrid(btn.dataset.category);
+    nav.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            nav.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            renderGrid(link.dataset.category);
         });
     });
 
-    renderFoodGrid('all');
+    renderGrid('all');
 }
 
-function renderFoodGrid(categoryId) {
+function renderGrid(categoryId) {
     const grid = document.getElementById('menu-grid');
     const filtered = categoryId === 'all' ? FOODS : FOODS.filter(f => f.category === categoryId);
 
@@ -36,23 +35,30 @@ function renderFoodGrid(categoryId) {
     grid.innerHTML = '';
     filtered.forEach(food => {
         const cat = CATEGORIES.find(c => c.id === food.category);
-        const catIcon = cat ? cat.icon : '';
         const catName = cat ? cat.name : '';
+        const catIcon = cat ? cat.icon : '🍽️';
 
-        const imageHTML = food.image
-            ? `<div class="food-image"><img src="${food.image}" alt="${food.name}" onerror="this.parentElement.classList.add('food-image-placeholder');this.parentElement.innerHTML='🍽️'"></div>`
-            : `<div class="food-image food-image-placeholder">${catIcon || '🍽️'}</div>`;
+        // Image or placeholder (like movie poster)
+        let imgHTML;
+        if (food.image) {
+            imgHTML = `<img src="${food.image}" alt="${food.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                       <div class="poster-img-placeholder" style="display:none">${catIcon}</div>`;
+        } else {
+            imgHTML = `<div class="poster-img-placeholder">${catIcon}</div>`;
+        }
 
         grid.innerHTML += `
-            <div class="food-card">
-                <span class="food-badge">${formatPrice(food.price)}</span>
-                <span class="food-cat-badge">${catName}</span>
-                ${imageHTML}
-                <div class="food-info">
-                    <div class="food-name">${food.name}</div>
-                    <div class="food-meta">
-                        <span class="food-price">${formatPrice(food.price)} so'm</span>
-                        ${food.desc ? `<span class="food-dot"></span><span class="food-desc">${food.desc}</span>` : ''}
+            <div class="poster-card">
+                <div class="poster-img">
+                    ${imgHTML}
+                    <span class="badge-hd">${formatPrice(food.price)}</span>
+                    <span class="badge-serial">${catName}</span>
+                </div>
+                <div class="poster-info">
+                    <div class="poster-title">${food.name}</div>
+                    <div class="poster-meta">
+                        <span class="poster-price">${formatPrice(food.price)} so'm</span>
+                        ${food.desc ? `<span class="meta-dot"></span><span>${food.desc}</span>` : ''}
                     </div>
                 </div>
             </div>`;
