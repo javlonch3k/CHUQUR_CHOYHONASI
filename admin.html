@@ -1,236 +1,926 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .admin-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px 15px;
-        }
-        .card {
-            background: #16213e;
-            border: 1px solid #2a2a4a;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
-        }
-        .card h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #e94560;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .form-group input, .form-group select {
-            padding: 12px 15px;
-            border: 1px solid #2a2a4a;
-            border-radius: 10px;
-            background: #1a1a2e;
-            color: #eee;
-            font-size: 15px;
-        }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #e94560;
-        }
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-primary {
-            background: #e94560;
-            color: white;
-        }
-        .btn-back {
-            background: #2a2a4a;
-            color: #aaa;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: #1a1a2e;
-            border-radius: 10px;
-            margin-bottom: 8px;
-        }
-        .list-item-name { font-weight: 500; }
-        .list-item-price { color: #e94560; font-weight: 600; }
-        .btn-delete {
-            background: #ff4757;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        .stats-row {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
-        .stat-num { font-size: 28px; font-weight: 700; color: #e94560; }
-        .stat-label { font-size: 12px; color: #888; }
-        .login-error { color: #ff4757; margin-top: 10px; display: none; }
-        .info-text { color: #888; font-size: 13px; text-align: center; padding: 15px; }
-    </style>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Panel — Sarmon Bobo</title>
+<link rel="icon" href="/SARMANBOBO/logo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --sidebar:#1C0A0A;--gold:#C8922A;--gold-lt:#F2D98A;
+  --bg:#F4F1EC;--white:#FFF;--border:#E5DDD0;
+  --text:#1C0A0A;--muted:#8B7355;--danger:#DC2626;--success:#16A34A;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
+
+/* LOGIN */
+#loginPage{display:flex;align-items:center;justify-content:center;min-height:100vh;
+  background:linear-gradient(135deg,#0b0f14,#141c24,#0b0f14);padding:20px}
+.login-box{background:#141c24;border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:40px 32px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.login-logo{text-align:center;margin-bottom:28px}
+.login-logo .icon{font-size:52px}
+.login-logo h1{font-size:20px;font-weight:700;margin-top:8px}
+.login-logo p{font-size:13px;color:var(--muted);margin-top:4px}
+.lbl{font-size:13px;font-weight:600;color:#8b949e;margin-bottom:6px;display:block}
+.linput{width:100%;padding:12px 16px;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;font-size:15px;font-family:'Inter',sans-serif;outline:none;background:#1a2332;color:#e6edf3;transition:border .2s}
+.linput:focus{border-color:#3fb950}
+.lbtn{width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,#238636,#3fb950);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.lbtn:hover{opacity:.9}
+.lerr{color:var(--danger);font-size:13px;margin-top:10px;text-align:center;display:none}
+
+/* LAYOUT */
+#app{display:none;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:240px;background:var(--sidebar);flex-shrink:0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:50;transition:transform .25s}
+.sb-logo{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-logo h2{color:var(--gold-lt);font-size:15px;font-weight:700}
+.sb-logo p{color:rgba(255,255,255,.35);font-size:11px;margin-top:3px}
+.sb-nav{padding:12px 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 20px;cursor:pointer;color:rgba(255,255,255,.5);font-size:14px;font-weight:500;transition:all .18s;border-left:3px solid transparent}
+.nav-item:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.05)}
+.nav-item.active{color:var(--gold-lt);background:rgba(200,146,42,.12);border-left-color:var(--gold)}
+.nav-item .ni{font-size:18px;width:22px;text-align:center}
+.sb-bottom{padding:16px 20px;border-top:1px solid rgba(255,255,255,.07)}
+.logout-btn{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.4);font-size:13px;cursor:pointer;padding:8px 0;transition:color .2s}
+.logout-btn:hover{color:var(--danger)}
+.main{margin-left:240px;flex:1;min-height:100vh}
+.topbar{background:#fff;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:40;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.topbar h3{font-size:18px;font-weight:700}
+.admin-badge{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--muted)}
+.content{padding:28px}
+.page{display:none}.page.active{display:block}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:28px}
+
+.stat-card{cursor:pointer;transition:all .2s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1);border-color:var(--gold)}
+.stat-card .sc-arrow{font-size:11px;color:var(--muted);margin-top:6px;opacity:0;transition:opacity .2s}
+.stat-card:hover .sc-arrow{opacity:1}
+
+.stat-card{background:#fff;border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.sc-icon{font-size:28px;margin-bottom:10px}
+.sc-num{font-size:28px;font-weight:700;line-height:1}
+.sc-label{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500}
+
+/* TABLE */
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-head h4{font-size:16px;font-weight:700}
+.btn{padding:9px 18px;border-radius:10px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s;display:inline-flex;align-items:center;gap:6px}
+.btn-gold{background:var(--gold);color:#fff}.btn-gold:hover{background:#b07820}
+.btn-del{background:#FEE2E2;color:var(--danger)}.btn-del:hover{background:#FECACA}
+.btn-edt{background:#EEF2FF;color:#4338CA}.btn-edt:hover{background:#E0E7FF}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:8px}
+.tbl-wrap{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.srch-bar{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.srch-bar input{border:none;outline:none;font-size:14px;width:100%;font-family:'Inter',sans-serif;background:transparent}
+.srch-bar input::placeholder{color:#ccc}
+table{width:100%;border-collapse:collapse}
+th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;background:#FAFAF8;border-bottom:1px solid var(--border)}
+td{padding:13px 16px;font-size:13px;border-bottom:1px solid #F5F0E8;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#FDFAF5}
+.td-em{width:44px;height:44px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden}
+.td-em img{width:100%;height:100%;object-fit:cover}
+.td-name{font-weight:600}
+.td-desc{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.td-price{font-weight:700;color:#6B1212}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px}
+.b-pop{background:#FEF9C3;color:#854D0E}
+.b-hot{background:#FEE2E2;color:var(--danger)}
+.b-new{background:#DCFCE7;color:#166534}
+.b-no{background:#F1F5F9;color:#64748B}
+.cat-pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.m-head{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
+.m-head h3{font-size:17px;font-weight:700}
+.m-close{background:var(--bg);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;color:var(--muted)}
+.m-body{padding:20px 24px 24px}
+.m-foot{padding:0 24px 24px;display:flex;gap:10px;justify-content:flex-end}
+.flbl{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
+.finp,.fsel,.ftxt{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border .2s;background:var(--bg)}
+.finp:focus,.fsel:focus,.ftxt:focus{border-color:var(--gold);background:#fff}
+.ftxt{resize:vertical;min-height:80px}
+.frow{margin-bottom:16px}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* SETTINGS */
+.s-card{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.s-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.s-head h4{font-size:15px;font-weight:700}
+.s-body{padding:20px}
+
+/* CATEGORY GRID */
+
+/* CATEGORY FOOD LIST */
+.cat-nm-ov{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));color:#fff;font-size:14px;font-weight:700;z-index:2;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.cat-foods{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.cf-item{display:flex;align-items:center;gap:7px;padding:4px 0;border-bottom:1px solid var(--border)}
+.cf-item:last-child{border-bottom:none}
+.cf-em{width:28px;height:28px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;overflow:hidden}
+.cf-name{flex:1;font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-price{font-size:11px;font-weight:700;color:#6B1212;white-space:nowrap}
+.cf-more{font-size:11px;color:var(--muted);text-align:center;padding:4px;background:var(--bg);border-radius:6px}
+
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+.cat-crd{background:#fff;border-radius:16px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .2s}
+.cat-crd:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
+.cat-img{height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.cat-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .35s}
+.cat-crd:hover .cat-img img{transform:scale(1.07)}
+.cat-img-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.55) 100%);z-index:1}
+.cat-em-wrap{display:none}
+.cat-em{display:none}
+.cat-lb{color:#fff;font-size:12px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.7);text-align:center;padding:0 4px}
+.cat-inf{padding:12px}
+.cat-nm{font-size:14px;font-weight:700;margin-bottom:2px}
+.cat-id{font-size:11px;color:var(--muted);margin-bottom:8px}
+.cat-ac{display:flex;gap:6px}
+
+/* UPLOAD */
+.up-area{border:2px dashed var(--border);border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);margin-top:8px}
+.up-area:hover{border-color:var(--gold);background:#fffdf5}
+.up-icon{font-size:32px;margin-bottom:8px}
+.up-txt{font-size:14px;font-weight:600}
+.up-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.prg-wrap{margin-top:12px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.prg-top{display:flex;justify-content:space-between;margin-bottom:8px}
+.prg-lbl{font-size:13px;font-weight:600}
+.prg-pct{font-size:13px;font-weight:700;color:var(--gold)}
+.prg-bg{background:#f0ece4;border-radius:8px;height:10px;overflow:hidden}
+.prg-fill{height:100%;width:0%;border-radius:8px;background:linear-gradient(90deg,var(--gold),#F2D98A);transition:width .2s;box-shadow:0 0 8px rgba(200,146,42,.4)}
+.up-prev{display:flex;align-items:center;gap:12px;margin-top:12px;background:#fff;border:1px solid #d4edda;border-radius:12px;padding:12px 14px}
+
+
+/* ── TOGGLE SWITCH ── */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info h5{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.toggle-info p{font-size:12px;color:var(--muted)}
+.toggle{position:relative;width:52px;height:28px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:#ddd;border-radius:28px;cursor:pointer;transition:background .25s}
+.toggle input:checked + .toggle-track{background:var(--success)}
+.toggle-track::before{content:'';position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle input:checked + .toggle-track::before{transform:translateX(24px)}
+.toggle-status{font-size:12px;font-weight:700;margin-top:8px;padding:4px 12px;border-radius:20px;display:inline-block}
+.toggle-status.on{background:#DCFCE7;color:#166534}
+.toggle-status.off{background:#FEE2E2;color:#991B1B}
+
+
+/* RATINGS */
+.star-badge{display:inline-flex;align-items:center;gap:3px;font-size:13px;font-weight:700;padding:4px 10px;border-radius:8px}
+.s5{background:#FEF9C3;color:#854D0E}
+.s4{background:#FEF9C3;color:#92400E}
+.s3{background:#FFF7ED;color:#C2410C}
+.s2{background:#FFF1F2;color:#BE123C}
+.s1{background:#FFF1F2;color:#9F1239}
+.changed-badge{font-size:10px;background:#EEF2FF;color:#4338CA;padding:2px 6px;border-radius:4px;font-weight:600}
+.rat-avg-big{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--maroon);line-height:1}
+.rat-stars-row{display:flex;gap:3px;margin-top:4px}
+.rs{font-size:20px}
+.rs.filled{color:#C8922A}
+.rs.empty{color:#e5e7eb}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#1C0A0A;color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;display:flex;align-items:center;gap:8px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success::before{content:'✅'}
+.toast.error::before{content:'❌'}
+
+/* MOBILE */
+.m-toggle{display:none;background:none;border:none;font-size:22px;cursor:pointer;padding:4px}
+.ov-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:49}
+.ov-bg.show{display:block}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .topbar{padding:0 16px}
+  .content{padding:16px}
+  .m-toggle{display:flex}
+  .frow2{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+@keyframes shimmerA{0%{background-position:200% center}100%{background-position:-200% center}}
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>⚙️ Admin Panel</h1>
-            <p class="subtitle">CHUQUR CHOYHONASI boshqaruvi</p>
-        </div>
-    </header>
 
-    <div class="admin-container">
-        <!-- Login -->
-        <div id="login-section" class="card">
-            <h2>🔐 Kirish</h2>
-            <div class="form-group">
-                <input type="password" id="admin-pass" placeholder="Parolni kiriting..." />
-                <button class="btn btn-primary" onclick="login()">Kirish</button>
-            </div>
-            <p class="login-error" id="login-error">❌ Parol noto'g'ri!</p>
-        </div>
 
-        <!-- Admin Content -->
-        <div id="admin-content" style="display:none">
-            <!-- Stats -->
-            <div class="card">
-                <div class="stats-row">
-                    <div><div class="stat-num" id="s-cat">0</div><div class="stat-label">Kategoriya</div></div>
-                    <div><div class="stat-num" id="s-food">0</div><div class="stat-label">Ovqatlar</div></div>
-                </div>
-            </div>
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="login-box">
+    <div class="login-logo"><img src="/SARMANBOBO/logo.png" style="width:80px;height:80px;border-radius:20px;object-fit:cover;margin-bottom:8px;border:2px solid rgba(63,185,80,.3)"/><h1 style="background:linear-gradient(110deg,#56d364,#fff,#3fb950,#56d364);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmerA 3s linear infinite">Sarmon Bobo Choyhonasi</h1><p style="color:#8b949e">Admin Panel</p></div>
+    <label class="lbl">Parol</label>
+    <input class="linput" id="loginPass" type="password" placeholder="Parolni kiriting..." onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="lbtn" onclick="doLogin()">🔐 Kirish</button>
+    <div class="lerr" id="loginErr">Noto'g'ri parol!</div>
+  </div>
+</div>
 
-            <!-- Kategoriya -->
-            <div class="card">
-                <h2>📁 Kategoriya qo'shish</h2>
-                <div class="form-group">
-                    <input type="text" id="cat-name" placeholder="Nomi (masalan: Oshlar)" />
-                    <input type="text" id="cat-icon" placeholder="Emoji (masalan: 🍚)" maxlength="4" />
-                    <button class="btn btn-primary" onclick="addCat()">➕ Qo'shish</button>
-                </div>
-                <div id="cat-list" style="margin-top:15px"></div>
-            </div>
+<!-- APP -->
+<div id="app">
+<div class="ov-bg" id="ovBg" onclick="closeSidebar()"></div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo"><img src="/SARMANBOBO/logo.png" style="width:44px;height:44px;border-radius:10px;object-fit:cover;margin-bottom:8px;display:block"/><h2>Sarmon Bobo</h2><p>Admin Panel</p></div>
+    <nav class="sb-nav">
+      <div class="nav-item active" onclick="goPage('dash')"><span class="ni">📊</span> Dashboard</div>
+      <div class="nav-item" onclick="goPage('menu')"><span class="ni">🍽️</span> Menyu</div>
+      <div class="nav-item" onclick="goPage('cats')"><span class="ni">📂</span> Kategoriyalar</div>
 
-            <!-- Ovqat -->
-            <div class="card">
-                <h2>🍽️ Ovqat qo'shish</h2>
-                <div class="form-group">
-                    <select id="food-cat"><option value="">Kategoriya tanlang...</option></select>
-                    <input type="text" id="food-name" placeholder="Ovqat nomi" />
-                    <input type="text" id="food-desc" placeholder="Tarkibi / tavsif" />
-                    <input type="number" id="food-price" placeholder="Narxi (so'm)" />
-                    <input type="text" id="food-img" placeholder="Rasm URL (ixtiyoriy)" />
-                    <button class="btn btn-primary" onclick="addFood()">➕ Qo'shish</button>
-                </div>
-            </div>
+      <div class="nav-item" onclick="goPage('settings')"><span class="ni">⚙️</span> Sozlamalar</div>
 
-            <!-- Ovqatlar -->
-            <div class="card">
-                <h2>📋 Barcha ovqatlar</h2>
-                <div id="food-list"></div>
-            </div>
+      <div class="nav-item" onclick="window.open('/SARMANBOBO/','_blank')"><span class="ni">🌐</span> Menyu saytiga kirish</div>
+    </nav>
+    <div class="sb-bottom"><div class="logout-btn" onclick="logout()">🚪 Chiqish</div></div>
+  </aside>
 
-            <!-- Info -->
-            <div class="card">
-                <p class="info-text">
-                    ⚠️ O'zgarishlar faqat shu qurilmada saqlanadi.<br>
-                    Hamma ko'radigan qilish uchun Kiro'ga yozing — u GitHub'ga push qiladi.
-                </p>
-            </div>
-
-            <a href="index.html" class="btn btn-back" style="width:100%">🔙 Menyuga qaytish</a>
-        </div>
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="m-toggle" onclick="toggleSidebar()">☰</button>
+        <h3 id="pgTitle">Dashboard</h3>
+      </div>
+      <div class="admin-badge">👤 Admin</div>
     </div>
+    <div class="content">
 
-    <script src="menu-data.js"></script>
-    <script>
-        const ADMIN_PASS = 'admin123';
 
-        function login() {
-            const pass = document.getElementById('admin-pass').value;
-            if (pass === ADMIN_PASS) {
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('admin-content').style.display = 'block';
-                renderAdmin();
-            } else {
-                const err = document.getElementById('login-error');
-                err.style.display = 'block';
-                setTimeout(() => err.style.display = 'none', 3000);
-            }
-        }
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dash">
+        <div class="stats-grid" id="statsGrid"></div>
+        <div class="section-head"><h4>📋 So'nggi taomlar</h4></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Taom</th><th>Kategoriya</th><th>Narx</th><th>Badge</th></tr></thead>
+        <tbody id="recentTbl"></tbody></table></div>
+      </div>
 
-        function renderAdmin() {
-            document.getElementById('s-cat').textContent = CATEGORIES.length;
-            document.getElementById('s-food').textContent = FOODS.length;
+      <!-- MENYU -->
+      <div class="page" id="page-menu">
+        <div class="section-head"><h4>🍽️ Barcha Taomlar</h4>
+          <button class="btn btn-gold" onclick="openAddModal()">＋ Yangi taom</button></div>
+        <div class="tbl-wrap">
+          <div class="srch-bar"><span>🔍</span><input id="menuSrch" type="text" placeholder="Taom qidirish..." oninput="menuBadgeFilter='';this.placeholder='Taom qidirish...';renderTbl()"/></div>
+          <table><thead><tr><th style="width:50px"></th><th>Nomi</th><th>Kategoriya</th><th>Narx</th><th>Badge</th><th>Amallar</th></tr></thead>
+          <tbody id="menuTbl"></tbody></table>
+        </div>
+      </div>
 
-            // Categories
-            const catList = document.getElementById('cat-list');
-            catList.innerHTML = '';
-            CATEGORIES.forEach(c => {
-                catList.innerHTML += `<div class="list-item"><span>${c.icon} ${c.name}</span><span style="color:#888">${FOODS.filter(f=>f.category===c.id).length} ta</span></div>`;
-            });
+      <!-- KATEGORIYALAR -->
+      <div class="page" id="page-cats">
+        <div class="section-head"><h4>📂 Kategoriyalar</h4>
+          <button class="btn btn-gold" onclick="openCatModal()">＋ Yangi kategoriya</button></div>
+        <div class="cat-grid" id="catGrid"></div>
+      </div>
 
-            // Foods
-            const foodList = document.getElementById('food-list');
-            foodList.innerHTML = '';
-            FOODS.forEach(f => {
-                const cat = CATEGORIES.find(c => c.id === f.category);
-                const catName = cat ? cat.icon + ' ' + cat.name : '';
-                foodList.innerHTML += `<div class="list-item"><div><span class="list-item-name">${f.name}</span><br><span style="color:#666;font-size:12px">${catName}</span></div><span class="list-item-price">${Number(f.price).toLocaleString()} so'm</span></div>`;
-            });
+      <!-- SOZLAMALAR -->
+      <div class="page" id="page-settings">
+        <div class="s-card">
+          <div class="s-head"><span>📶</span><h4>WiFi Sozlamalari</h4></div>
+          <div class="s-body">
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <h5>WiFi ko'rsatish</h5>
+                <p>Menyuda WiFi kartasini yoqish / o'chirish</p>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                <label class="toggle">
+                  <input type="checkbox" id="wifiToggle" onchange="toggleWifi(this)"/>
+                  <div class="toggle-track"></div>
+                </label>
+                <span class="toggle-status off" id="wifiStatus">O'chiq</span>
+              </div>
+            </div>
+            <div style="height:16px"></div>
+            <div class="frow2">
+              <div class="frow" style="margin:0"><label class="flbl">WiFi nomi (SSID)</label><input class="finp" id="wSsid" type="text"/></div>
+              <div class="frow" style="margin:0"><label class="flbl">WiFi paroli</label><input class="finp" id="wPass" type="text"/></div>
+            </div>
+            <button class="btn btn-gold" style="margin-top:16px" onclick="saveWifi()">💾 Saqlash</button>
+          </div>
+        </div>
+        <div class="s-card">
+          <div class="s-head"><span>🏠</span><h4>Restoran Nomi</h4></div>
+          <div class="s-body">
+            <div class="frow"><label class="flbl">Nomi</label><input class="finp" id="rName" type="text"/></div>
+            <button class="btn btn-gold" onclick="saveName()">💾 Saqlash</button>
+          </div>
+        </div>
+        <div class="s-card">
+          <div class="s-head"><span>🔐</span><h4>Parolni O'zgartirish</h4></div>
+          <div class="s-body">
+            <div class="frow2">
+              <div class="frow" style="margin:0"><label class="flbl">Yangi parol</label><input class="finp" id="nPass" type="password" placeholder="Yangi parol"/></div>
+              <div class="frow" style="margin:0"><label class="flbl">Tasdiqlash</label><input class="finp" id="nPass2" type="password" placeholder="Qayta kiriting"/></div>
+            </div>
+            <button class="btn btn-gold" style="margin-top:16px" onclick="savePass()">🔒 O'zgartirish</button>
+          </div>
+        </div>
+      </div></div>
+  </main>
+</div>
+</div>
 
-            // Select
-            const sel = document.getElementById('food-cat');
-            sel.innerHTML = '<option value="">Kategoriya tanlang...</option>';
-            CATEGORIES.forEach(c => {
-                sel.innerHTML += `<option value="${c.id}">${c.icon} ${c.name}</option>`;
-            });
-        }
 
-        function addCat() {
-            const name = document.getElementById('cat-name').value.trim();
-            const icon = document.getElementById('cat-icon').value.trim() || '📂';
-            if (!name) return alert('Nom kiriting!');
+<!-- TAOM MODAL -->
+<div class="overlay" id="itemModal">
+  <div class="modal">
+    <div class="m-head"><h3 id="mTitle">Yangi taom</h3><button class="m-close" onclick="closeModal()">✕</button></div>
+    <div class="m-body">
+      <input type="hidden" id="eId"/>
+      <div class="frow"><label class="flbl">Taom nomi *</label><input class="finp" id="fName" placeholder="Osh (Palov)"/></div>
+      <div class="frow2">
+        <div class="frow" style="margin:0"><label class="flbl">Kategoriya *</label>
+          <select class="fsel" id="fCat" style="width:100%"></select></div>
+        <div class="frow" style="margin:0"><label class="flbl">Narx (so'm) *</label><input class="finp" id="fPrice" type="number" placeholder="25000"/></div>
+      </div>
+      <div class="frow"><label class="flbl">Tavsif</label><textarea class="ftxt" id="fDesc" placeholder="Taom haqida..."></textarea></div>
+      <div class="frow2">
+        <div class="frow" style="margin:0"><label class="flbl">Badge</label>
+          <select class="fsel" id="fBadge" style="width:100%">
+            <option value="">Yo'q</option><option value="new">🆕 Yangi</option>
+            <option value="pop">⭐ Mashhur</option><option value="hot">🌶 O'tkir</option>
+          </select></div>
+        <div class="frow" style="margin:0"><label class="flbl">Rasm URL</label><input class="finp" id="fImg" placeholder="https://..."/></div>
+      </div>
+      <div class="frow">
+        <label class="flbl">📷 Telefon/Kompyuterdan rasm yuklash</label>
+        <div class="up-area" id="upArea" onclick="document.getElementById('fFile').click()">
+          <input type="file" id="fFile" accept="image/*" style="display:none" onchange="uploadImg(this)"/>
+          <div class="up-icon">📷</div><div class="up-txt">Rasmni tanlash uchun bosing</div>
+          <div class="up-sub">JPG, PNG, WEBP — max 10MB</div>
+        </div>
+        <div class="prg-wrap" id="upPrg" style="display:none">
+          <div class="prg-top"><span class="prg-lbl">Yuklanmoqda...</span><span class="prg-pct" id="upPct">0%</span></div>
+          <div class="prg-bg"><div class="prg-fill" id="upFill"></div></div>
+        </div>
+        <div class="up-prev" id="upPrev" style="display:none">
+          <img id="upImg" style="width:80px;height:80px;object-fit:cover;border-radius:10px"/>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--success)">✅ Rasm yuklandi!</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px" id="upUrl"></div></div>
+          <button class="btn btn-del btn-sm" onclick="clearUpload()">✕</button>
+        </div>
+      </div>
+    </div>
+    <div class="m-foot">
+      <button class="btn" style="background:var(--bg)" onclick="closeModal()">Bekor</button>
+      <button class="btn btn-gold" onclick="saveItem()">💾 Saqlash</button>
+    </div>
+  </div>
+</div>
 
-            alert('✅ Kategoriya: ' + icon + ' ' + name + '\n\nKiro\'ga yozing:\n"' + name + ' kategoriya qo\'sh, emoji: ' + icon + '"');
-            document.getElementById('cat-name').value = '';
-            document.getElementById('cat-icon').value = '';
-        }
+<!-- TAOM O'CHIRISH -->
+<div class="overlay" id="delModal">
+  <div class="modal" style="max-width:360px">
+    <div class="m-head"><h3>O'chirishni tasdiqlang</h3><button class="m-close" onclick="document.getElementById('delModal').classList.remove('open')">✕</button></div>
+    <div class="m-body"><p style="font-size:14px;color:var(--muted)">"<b id="delName"></b>" taomini o'chirasizmi?</p></div>
+    <div class="m-foot">
+      <button class="btn" style="background:var(--bg)" onclick="document.getElementById('delModal').classList.remove('open')">Bekor</button>
+      <button class="btn btn-del" onclick="confirmDel()">🗑 O'chirish</button>
+    </div>
+  </div>
+</div>
 
-        function addFood() {
-            const cat = document.getElementById('food-cat').value;
-            const name = document.getElementById('food-name').value.trim();
-            const desc = document.getElementById('food-desc').value.trim();
-            const price = document.getElementById('food-price').value;
-            if (!cat || !name || !price) return alert('Barcha maydonlarni to\'ldiring!');
+<!-- KATEGORIYA MODAL -->
+<div class="overlay" id="catModal">
+  <div class="modal">
+    <div class="m-head"><h3 id="cMTitle">Yangi kategoriya</h3><button class="m-close" onclick="closeCatModal()">✕</button></div>
+    <div class="m-body">
+      <input type="hidden" id="cEditId"/>
+      <div class="frow2">
+        <div class="frow" style="margin:0"><label class="flbl">Kalit (ID) *</label><input class="finp" id="cId" placeholder="masalan: ichimlik"/></div>
+        <div class="frow" style="margin:0"><label class="flbl">Emoji *</label><input class="finp" id="cIcon" placeholder="🍵" style="font-size:22px"/></div>
+      </div>
+      <div class="frow"><label class="flbl">Kategoriya nomi *</label><input class="finp" id="cLabel" placeholder="Choylar"/></div>
+      <div class="frow2">
+        <div class="frow" style="margin:0"><label class="flbl">Karta fon rangi</label><input class="finp" id="cBg" type="color" value="#e8f5e9" style="height:44px;cursor:pointer"/></div>
+        <div class="frow" style="margin:0"><label class="flbl">Icon fon rangi</label><input class="finp" id="cBgI" type="color" value="#a5d6a7" style="height:44px;cursor:pointer"/></div>
+      </div>
+      <div class="frow">
+        <label class="flbl">🖼 Kategoriya rasmi (ixtiyoriy)</label>
+        <div class="up-area" id="cUpArea" onclick="document.getElementById('cFile').click()">
+          <input type="file" id="cFile" accept="image/*" style="display:none" onchange="uploadCatImg(this)"/>
+          <div class="up-icon">🖼</div><div class="up-txt">Rasm tanlash uchun bosing</div>
+          <div class="up-sub">Kategoriya uchun fon rasm</div>
+        </div>
+        <div class="prg-wrap" id="cPrg" style="display:none">
+          <div class="prg-top"><span class="prg-lbl">Yuklanmoqda...</span><span class="prg-pct" id="cPct">0%</span></div>
+          <div class="prg-bg"><div class="prg-fill" id="cFill"></div></div>
+        </div>
+        <div class="up-prev" id="cPrev" style="display:none">
+          <img id="cPrevImg" style="width:80px;height:80px;object-fit:cover;border-radius:10px"/>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--success)">✅ Rasm yuklandi!</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px" id="cPrevUrl"></div></div>
+          <button class="btn btn-del btn-sm" onclick="clearCatImg()">✕</button>
+        </div>
+        <input type="hidden" id="cImg"/>
+      </div>
+    </div>
+    <div class="m-foot">
+      <button class="btn" style="background:var(--bg)" onclick="closeCatModal()">Bekor</button>
+      <button class="btn btn-gold" onclick="saveCat()">💾 Saqlash</button>
+    </div>
+  </div>
+</div>
 
-            const catName = CATEGORIES.find(c => c.id === cat)?.name || cat;
-            alert('✅ Ovqat: ' + name + ' - ' + Number(price).toLocaleString() + ' so\'m\n\nKiro\'ga yozing:\n"' + catName + ' ga ' + name + ' qo\'sh ' + price + ' so\'m"');
+<!-- KATEGORIYA O'CHIRISH -->
+<div class="overlay" id="delCatModal">
+  <div class="modal" style="max-width:360px">
+    <div class="m-head"><h3>Kategoriyani o'chirish</h3><button class="m-close" onclick="document.getElementById('delCatModal').classList.remove('open')">✕</button></div>
+    <div class="m-body"><p style="font-size:14px;color:var(--muted)">"<b id="delCatNm"></b>" kategoriyasini o'chirasizmi?<br><small style="color:var(--danger)">Bu kategoriya taomlarini ham tekshiring!</small></p></div>
+    <div class="m-foot">
+      <button class="btn" style="background:var(--bg)" onclick="document.getElementById('delCatModal').classList.remove('open')">Bekor</button>
+      <button class="btn btn-del" onclick="confirmCatDel()">🗑 O'chirish</button>
+    </div>
+  </div>
+</div>
 
-            document.getElementById('food-name').value = '';
-            document.getElementById('food-desc').value = '';
-            document.getElementById('food-price').value = '';
-            document.getElementById('food-img').value = '';
-        }
-    </script>
-</body>
-</html>
+
+<div class="overlay" id="addAdminModal">
+  <div class="modal" style="max-width:400px">
+    <div class="m-head"><h3>➕ Yangi Admin</h3>
+      <button class="m-close" onclick="document.getElementById('addAdminModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="m-body">
+      <div class="frow"><label class="flbl">Ism *</label><input class="finp" id="newAdminName" placeholder="Masalan: Sardor"/></div>
+      <div class="frow"><label class="flbl">Parol *</label><input class="finp" id="newAdminPass" type="password" placeholder="Kamida 6 belgi"/></div>
+      <div class="frow"><label class="flbl">Parolni tasdiqlang *</label><input class="finp" id="newAdminPass2" type="password" placeholder="Qayta kiriting"/></div>
+    </div>
+    <div class="m-foot">
+      <button class="btn" style="background:var(--bg)" onclick="document.getElementById('addAdminModal').classList.remove('open')">Bekor</button>
+      <button class="btn btn-gold" onclick="saveNewAdmin()">&#10003; Qo'shish</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+const API='';
+let TOKEN='',MENU=[],CATS=[],delId=null,delCatId=null;
+const CAT_LABELS={choy:'🍵 Choylar',taom:'🥘 Taomlar',kabob:'🍢 Kaboblar',non:'🫓 Non',shirinlik:'🍯 Shirinlik',ichimlik:'🥤 Ichimlik'};
+const EMOJIS={choy:'🍵',taom:'🍲',kabob:'🍢',non:'🫓',shirinlik:'🍯',ichimlik:'🥤'};
+
+/* LOGIN */
+async function doLogin(){
+  const p=document.getElementById('loginPass').value.trim();if(!p)return;
+  try{
+    const r=await fetch('/sarmon-api/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:p})});
+    const d=await r.json();
+    if(d.ok){TOKEN=d.token;document.getElementById('loginPage').style.display='none';document.getElementById('app').style.display='block';await loadAll();}
+    else document.getElementById('loginErr').style.display='block';
+  }catch(e){document.getElementById('loginErr').textContent='Server bilan ulanmadi!';document.getElementById('loginErr').style.display='block';}
+}
+function logout(){TOKEN='';MENU=[];CATS=[];document.getElementById('app').style.display='none';document.getElementById('loginPage').style.display='flex';document.getElementById('loginPass').value='';document.getElementById('loginErr').style.display='none';}
+
+/* LOAD */
+async function loadAll(){
+  const[mr,cr,cfr]=await Promise.all([fetch('/sarmon-api/api/menu'),fetch('/sarmon-api/api/categories'),fetch('/sarmon-api/api/config')]);
+  MENU=await mr.json();CATS=await cr.json();
+  const cfg=await cfr.json();
+  document.getElementById('wSsid').value=cfg.wifi?.ssid||'';
+  document.getElementById('wPass').value=cfg.wifi?.password||'';
+  document.getElementById('rName').value=cfg.restaurantName||'';
+  const wv = cfg.wifiVisible !== false;
+  const tog = document.getElementById('wifiToggle');
+  const sts = document.getElementById('wifiStatus');
+  if(tog){ tog.checked = wv; }
+  if(sts){ sts.textContent = wv ? 'Yoqiq' : 'O\'chiq'; sts.className = 'toggle-status ' + (wv?'on':'off'); }
+  renderDash();renderTbl();renderCatGrid();buildCatSelect();
+}
+
+/* DASHBOARD */
+function renderDash(){
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-card" onclick="goPageFilter('menu','all')">
+      <div class="sc-icon">🍽️</div><div class="sc-num">${MENU.length}</div>
+      <div class="sc-label">Jami taomlar</div><div class="sc-arrow">Barchasini ko'rish →</div>
+    </div>
+    <div class="stat-card" onclick="goPageFilter('cats','all')">
+      <div class="sc-icon">📂</div><div class="sc-num">${CATS.length}</div>
+      <div class="sc-label">Kategoriyalar</div><div class="sc-arrow">Barchasini ko'rish →</div>
+    </div>
+    <div class="stat-card" onclick="goPageFilter('menu','pop')">
+      <div class="sc-icon">⭐</div><div class="sc-num">${MENU.filter(i=>i.badge==='pop').length}</div>
+      <div class="sc-label">Mashhur</div><div class="sc-arrow">Ko'rish →</div>
+    </div>
+    <div class="stat-card" onclick="goPageFilter('menu','new')">
+      <div class="sc-icon">🆕</div><div class="sc-num">${MENU.filter(i=>i.badge==='new').length}</div>
+      <div class="sc-label">Yangi</div><div class="sc-arrow">Ko'rish →</div>
+    </div>`;
+  const recent=[...MENU].slice(-5).reverse();
+  document.getElementById('recentTbl').innerHTML=recent.map(it=>`<tr>
+    <td><div style="display:flex;align-items:center;gap:10px"><div class="td-em">${it.img?`<img src="${it.img}" onerror="this.parentNode.textContent='${EMOJIS[it.cat]||'🍽'}'">`:EMOJIS[it.cat]||'🍽'}</div><b>${it.name}</b></div></td>
+    <td><span class="cat-pill">${getCatLabel(it.cat)}</span></td>
+    <td class="td-price">${it.price.toLocaleString('uz-UZ')} so'm</td>
+    <td>${bHTML(it.badge)}</td></tr>`).join('');
+}
+function getCatLabel(id){const c=CATS.find(x=>x.id===id);return c?c.icon+' '+c.label:CAT_LABELS[id]||id;}
+function bHTML(b){
+  if(b==='new')return'<span class="badge b-new">🆕 Yangi</span>';
+  if(b==='pop')return'<span class="badge b-pop">⭐ Mashhur</span>';
+  if(b==='hot')return'<span class="badge b-hot">🌶 O\'tkir</span>';
+  return'<span class="badge b-no">—</span>';
+}
+</script>
+
+
+<script>
+/* MENU TABLE */
+function renderTbl(){
+  const q=(document.getElementById('menuSrch')?.value||'').toLowerCase();
+  let items=MENU.filter(i=>(!q||i.name.toLowerCase().includes(q)||i.desc?.toLowerCase().includes(q)));
+  if(menuBadgeFilter) items=items.filter(i=>i.badge===menuBadgeFilter);
+  document.getElementById('menuTbl').innerHTML=items.map(it=>`<tr>
+    <td><div class="td-em">${it.img?`<img src="${it.img}" onerror="this.parentNode.textContent='${EMOJIS[it.cat]||'🍽'}'">`:EMOJIS[it.cat]||'🍽'}</div></td>
+    <td><div class="td-name">${it.name}</div><div class="td-desc">${it.desc||''}</div></td>
+    <td><span class="cat-pill">${getCatLabel(it.cat)}</span></td>
+    <td class="td-price">${it.price.toLocaleString('uz-UZ')} so'm</td>
+    <td>${bHTML(it.badge)}</td>
+    <td><div style="display:flex;gap:6px">
+      <button class="btn btn-edt btn-sm" onclick="openEdit(${it.id})">✏️</button>
+      <button class="btn btn-del btn-sm" onclick="openDel(${it.id},'${it.name.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}')">🗑</button>
+    </div></td></tr>`).join('');
+}
+
+/* CATEGORY SELECT */
+function buildCatSelect(){
+  const sel=document.getElementById('fCat');if(!sel)return;
+  sel.innerHTML=CATS.map(c=>`<option value="${c.id}">${c.icon} ${c.label}</option>`).join('');
+}
+
+/* ADD / EDIT TAOM */
+
+function addFoodToCat(catId){
+  openAddModal();
+  setTimeout(()=>{
+    const sel=document.getElementById('fCat');
+    if(sel) sel.value=catId;
+  },50);
+}
+
+function openAddModal(){
+  document.getElementById('mTitle').textContent='➕ Yangi taom';
+  document.getElementById('eId').value='';
+  ['fName','fDesc','fImg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fPrice').value='';
+  document.getElementById('fBadge').value='';
+  clearUpload();
+  document.getElementById('itemModal').classList.add('open');
+}
+function openEdit(id){
+  const it=MENU.find(m=>m.id===id);if(!it)return;
+  document.getElementById('mTitle').textContent='✏️ Tahrirlash';
+  document.getElementById('eId').value=it.id;
+  document.getElementById('fName').value=it.name;
+  document.getElementById('fCat').value=it.cat;
+  document.getElementById('fPrice').value=it.price;
+  document.getElementById('fDesc').value=it.desc||'';
+  document.getElementById('fBadge').value=it.badge||'';
+  document.getElementById('fImg').value=it.img||'';
+  if(it.img){document.getElementById('upImg').src=it.img;document.getElementById('upUrl').textContent=it.img;document.getElementById('upPrev').style.display='flex';document.getElementById('upArea').style.display='none';}
+  else clearUpload();
+  document.getElementById('itemModal').classList.add('open');
+}
+async function saveItem(){
+  const name=document.getElementById('fName').value.trim();
+  const price=parseInt(document.getElementById('fPrice').value);
+  if(!name||!price){toast('Ism va narxni kiriting!','error');return;}
+  const eid=document.getElementById('eId').value;
+  const item={id:eid?parseInt(eid):Date.now(),name,price,
+    cat:document.getElementById('fCat').value,
+    desc:document.getElementById('fDesc').value.trim(),
+    badge:document.getElementById('fBadge').value,
+    img:document.getElementById('fImg').value.trim()};
+  if(eid)MENU=MENU.map(m=>m.id===item.id?item:m);else MENU.push(item);
+  await postMenu();closeModal();renderTbl();renderDash();
+  toast(eid?'Taom yangilandi!':'Yangi taom qo\'shildi!','success');
+}
+function closeModal(){document.getElementById('itemModal').classList.remove('open');}
+function openDel(id,name){delId=id;document.getElementById('delName').textContent=name;document.getElementById('delModal').classList.add('open');}
+async function confirmDel(){MENU=MENU.filter(m=>m.id!==delId);await postMenu();document.getElementById('delModal').classList.remove('open');renderTbl();renderDash();toast('Taom o\'chirildi!','success');}
+async function postMenu(){await fetch('/sarmon-api/api/menu',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(MENU)});}
+</script>
+
+
+<script>
+/* KATEGORIYALAR */
+function renderCatGrid(){
+  const g=document.getElementById('catGrid');
+  if(!CATS.length){g.innerHTML='<p style="color:var(--muted)">Hali kategoriya yo\'q</p>';return;}
+  g.innerHTML=CATS.map(c=>{
+    const cnt=MENU.filter(m=>m.cat===c.id).length;
+    const imgTag = c.img ? `<img src="${c.img}" onerror="this.style.display='none'">` : '';
+    const foods = MENU.filter(m=>m.cat===c.id);
+    return `<div class="cat-crd">
+      <div class="cat-img" style="background:${c.bg||'#f5ece0'}">
+        ${imgTag}
+        <div class="cat-img-ov"></div>
+        <div class="cat-nm-ov">${c.label}</div>
+      </div>
+      <div class="cat-inf">
+        <div class="cat-id" style="margin-bottom:8px">${cnt} ta taom</div>
+        <div class="cat-foods" id="cf-${c.id}">
+          ${foods.slice(0,3).map(f=>`<div class="cf-item">
+            <div class="cf-em">${f.img?`<img src="${f.img}" onerror="this.textContent='🍽'" style="width:100%;height:100%;object-fit:cover;border-radius:6px">`:'🍽'}</div>
+            <span class="cf-name">${f.name}</span>
+            <span class="cf-price">${f.price.toLocaleString('uz-UZ')}</span>
+          </div>`).join('')}
+          ${foods.length>3?`<div class="cf-more">+${foods.length-3} ta ko'proq</div>`:''}
+        </div>
+        <div class="cat-ac" style="margin-top:8px">
+          <button class="btn btn-gold btn-sm" onclick="addFoodToCat('${c.id}')">＋ Taom</button>
+          <button class="btn btn-edt btn-sm" onclick="openCatEdit('${c.id}')">✏️</button>
+          <button class="btn btn-del btn-sm" onclick="openCatDel('${c.id}','${c.label}')">🗑</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function openCatModal(){
+  document.getElementById('cMTitle').textContent='➕ Yangi kategoriya';
+  document.getElementById('cEditId').value='';
+  document.getElementById('cId').value='';document.getElementById('cId').disabled=false;
+  document.getElementById('cIcon').value='';document.getElementById('cLabel').value='';
+  document.getElementById('cBg').value='#e8f5e9';document.getElementById('cBgI').value='#a5d6a7';
+  document.getElementById('cImg').value='';clearCatImg();
+  document.getElementById('catModal').classList.add('open');
+}
+function openCatEdit(id){
+  const c=CATS.find(x=>x.id===id);if(!c)return;
+  document.getElementById('cMTitle').textContent='✏️ Kategoriya tahrirlash';
+  document.getElementById('cEditId').value=c.id;
+  document.getElementById('cId').value=c.id;document.getElementById('cId').disabled=true;
+  document.getElementById('cIcon').value=c.icon;document.getElementById('cLabel').value=c.label;
+  document.getElementById('cBg').value=c.bg||'#e8f5e9';document.getElementById('cBgI').value=c.bgIcon||'#a5d6a7';
+  document.getElementById('cImg').value=c.img||'';
+  if(c.img){document.getElementById('cPrevImg').src=c.img;document.getElementById('cPrevUrl').textContent=c.img;document.getElementById('cPrev').style.display='flex';document.getElementById('cUpArea').style.display='none';}
+  else clearCatImg();
+  document.getElementById('catModal').classList.add('open');
+}
+function closeCatModal(){document.getElementById('catModal').classList.remove('open');}
+async function saveCat(){
+  const eid=document.getElementById('cEditId').value;
+  const id=eid||document.getElementById('cId').value.trim().toLowerCase().replace(/\s+/g,'_');
+  const icon=document.getElementById('cIcon').value.trim();
+  const label=document.getElementById('cLabel').value.trim();
+  if(!id||!icon||!label){toast('Barcha maydonlarni to\'ldiring!','error');return;}
+  const cat={id,icon,label,bg:document.getElementById('cBg').value,bgIcon:document.getElementById('cBgI').value,img:document.getElementById('cImg').value};
+  if(eid)CATS=CATS.map(c=>c.id===eid?cat:c);
+  else{if(CATS.find(c=>c.id===id)){toast('Bu ID allaqachon mavjud!','error');return;}CATS.push(cat);}
+  await fetch('/sarmon-api/api/categories',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(CATS)});
+  closeCatModal();renderCatGrid();buildCatSelect();
+  toast(eid?'Kategoriya yangilandi!':'Yangi kategoriya qo\'shildi!','success');
+}
+function openCatDel(id,name){delCatId=id;document.getElementById('delCatNm').textContent=name;document.getElementById('delCatModal').classList.add('open');}
+async function confirmCatDel(){
+  CATS=CATS.filter(c=>c.id!==delCatId);
+  await fetch('/sarmon-api/api/categories',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(CATS)});
+  document.getElementById('delCatModal').classList.remove('open');renderCatGrid();buildCatSelect();toast('Kategoriya o\'chirildi!','success');
+}
+
+/* SETTINGS */
+
+async function toggleWifi(el){
+  const on = el.checked;
+  const sts = document.getElementById('wifiStatus');
+  sts.textContent = on ? 'Yoqiq' : "O'chiq";
+  sts.className = 'toggle-status ' + (on?'on':'off');
+  await postCfg({wifiVisible: on});
+  toast(on ? '📶 WiFi yoqildi — menyuda ko\'rinadi!' : '📵 WiFi o\'chirildi — menyudan yashirildi!', on?'success':'error');
+}
+
+async function saveWifi(){const s=document.getElementById('wSsid').value.trim(),p=document.getElementById('wPass').value.trim();if(!s||!p){toast('Ikkala maydonni to\'ldiring!','error');return;}await postCfg({wifi:{ssid:s,password:p}});toast('WiFi saqlandi!','success');}
+async function saveName(){const n=document.getElementById('rName').value.trim();if(!n){toast('Nomni kiriting!','error');return;}await postCfg({restaurantName:n});toast('Nom yangilandi!','success');}
+async function savePass(){const p1=document.getElementById('nPass').value,p2=document.getElementById('nPass2').value;if(!p1||!p2){toast('Parolni kiriting!','error');return;}if(p1!==p2){toast('Parollar mos kelmadi!','error');return;}if(p1.length<6){toast('Kamida 6 belgi!','error');return;}await postCfg({adminPassword:p1});document.getElementById('nPass').value='';document.getElementById('nPass2').value='';toast('Parol o\'zgartirildi!','success');}
+async function postCfg(d){await fetch('/sarmon-api/api/config',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(d)});}
+
+/* UPLOAD */
+function uploadImg(input){doUpload(input.files[0],'upPrg','upFill','upPct','upArea','upPrev','upImg','upUrl','fImg');}
+function uploadCatImg(input){doUpload(input.files[0],'cPrg','cFill','cPct','cUpArea','cPrev','cPrevImg','cPrevUrl','cImg');}
+function doUpload(file,prgId,fillId,pctId,areaId,prevId,imgId,urlId,hidId){
+  if(!file)return;
+  document.getElementById(areaId).style.display='none';
+  document.getElementById(prgId).style.display='block';
+  document.getElementById(prevId).style.display='none';
+  const fd=new FormData();fd.append('image',file);
+  const xhr=new XMLHttpRequest();
+  xhr.upload.addEventListener('progress',e=>{if(e.lengthComputable){const p=Math.round(e.loaded/e.total*100);document.getElementById(pctId).textContent=p+'%';document.getElementById(fillId).style.width=p+'%';}});
+  xhr.addEventListener('load',()=>{
+    document.getElementById(prgId).style.display='none';
+    if(xhr.status===200){const res=JSON.parse(xhr.responseText);if(res.ok){document.getElementById(hidId).value=res.url;document.getElementById(imgId).src=res.url;document.getElementById(urlId).textContent=res.url;document.getElementById(prevId).style.display='flex';toast('Rasm yuklandi!','success');}}
+    else{document.getElementById(areaId).style.display='block';toast('Rasm yuklanmadi!','error');}
+  });
+  xhr.open('POST','/sarmon-api/api/upload');
+  xhr.setRequestHeader('Authorization','Bearer '+TOKEN);
+  xhr.send(fd);
+}
+function clearUpload(){document.getElementById('fImg').value='';document.getElementById('upPrev').style.display='none';document.getElementById('upArea').style.display='block';document.getElementById('upPrg').style.display='none';const f=document.getElementById('fFile');if(f)f.value='';}
+function clearCatImg(){document.getElementById('cImg').value='';document.getElementById('cPrev').style.display='none';document.getElementById('cUpArea').style.display='block';document.getElementById('cPrg').style.display='none';const f=document.getElementById('cFile');if(f)f.value='';}
+
+/* NAV */
+
+let menuBadgeFilter = '';
+function goPageFilter(page, badge){
+  menuBadgeFilter = badge === 'all' ? '' : badge;
+  goPage(page);
+  if(page === 'menu'){
+    setTimeout(()=>{
+      renderTbl();
+      // Badge filterni ko'rsatish
+      if(badge && badge !== 'all'){
+        const lbl = badge==='pop'?'⭐ Mashhur':badge==='new'?'🆕 Yangi':'';
+        const srch = document.getElementById('menuSrch');
+        if(srch && lbl) srch.placeholder = lbl + ' taomlar filterlandi';
+      } else {
+        const srch = document.getElementById('menuSrch');
+        if(srch) srch.placeholder = 'Taom qidirish...';
+      }
+    },50);
+  }
+}
+
+
+/* ─── RATINGS ─── */
+async function loadRatingsPage(){
+  try{
+    // Stats
+    const r = await fetch('/sarmon-api/api/ratings');
+    const d = await r.json();
+    const avg = d.avg||0;
+    const filled = Math.round(avg);
+    document.getElementById('ratStatsGrid').innerHTML = `
+      <div class="stat-card">
+        <div class="rat-avg-big">${avg.toFixed(1)}</div>
+        <div class="rat-stars-row">${[1,2,3,4,5].map(i=>`<span class="rs ${i<=filled?'filled':'empty'}">★</span>`).join('')}</div>
+        <div class="sc-label" style="margin-top:6px">O'rtacha baho</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon">📊</div>
+        <div class="sc-num">${d.count||0}</div>
+        <div class="sc-label">Jami baholashlar</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon">📱</div>
+        <div class="sc-num">${(d.list||[]).filter(x=>x.device&&x.device.includes('Telefon')).length}</div>
+        <div class="sc-label">Telefondan</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon">💻</div>
+        <div class="sc-num">${(d.list||[]).filter(x=>x.device&&x.device.includes('Kompyuter')).length}</div>
+        <div class="sc-label">Kompyuterdan</div>
+      </div>`;
+
+    // List
+    const list = d.list||[];
+    if(!list.length){
+      document.getElementById('ratTbody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">Hali baholash yo\'q</td></tr>';
+      return;
+    }
+    const starColors = {5:'s5',4:'s4',3:'s3',2:'s2',1:'s1'};
+    document.getElementById('ratTbody').innerHTML = list.map(row=>`<tr>
+      <td><span class="star-badge ${starColors[row.stars]||'s3'}">${'★'.repeat(row.stars||1)} <b>${row.stars}</b>/5</span></td>
+      <td>
+        <div style="font-weight:600;font-size:13px">${row.date||'—'}</div>
+        <div style="color:var(--muted);font-size:11px">${row.time||'—'}</div>
+      </td>
+      <td>
+        <div style="font-size:13px;font-weight:500">${row.device||'Noma\'lum'}</div>
+      </td>
+      <td>
+        <div style="font-size:12px;font-weight:600;color:#1e40af">${row.browser||'—'}</div>
+        <div style="font-size:11px;color:var(--muted)">${row.os||'—'}</div>
+      </td>
+      <td>
+        <div style="font-size:13px;font-weight:500">${row.location||'—'}</div>
+      </td>
+      <td style="font-size:11px;color:var(--muted);font-family:monospace">${row.ip||'?'}</td>
+      <td>${row.changed?'<span class="changed-badge">✏️ O\'zgartirdi</span>':'<span style="font-size:11px;color:var(--success);font-weight:600">🆕 Yangi</span>'}</td>
+    </tr>`).join('');
+  }catch(e){ console.error(e); }
+}
+
+async function clearRatings(){
+  if(!confirm('Barcha baholashlarni o\'chirasizmi?')) return;
+  await fetch('/sarmon-api/api/ratings/clear',{method:'POST',headers:{'Authorization':'Bearer '+TOKEN}});
+  loadRatingsPage();
+  toast('Baholashlar tozalandi','success');
+}
+
+function goPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  event?.target?.closest('.nav-item')?.classList.add('active');
+  
+  if(name==='admins') loadAdmins();
+  const titles={dash:'📊 Dashboard',menu:'🍽️ Menyu',cats:'📂 Kategoriyalar',settings:'⚙️ Sozlamalar',admins:'👥 Adminlar',ratings:'⭐ Baholashlar'};
+  document.getElementById('pgTitle').textContent=titles[name]||name;
+  closeSidebar();
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('ovBg').classList.toggle('show');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('ovBg').classList.remove('show');}
+function toast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3000);}
+
+/* ─── ADMINLAR ─── */
+async function loadAdmins(){
+  try{
+    var r = await fetch('/sarmon-api/api/admins');
+    var list = await r.json();
+    var master = [{name:'Siz (Master Admin)', createdAt:'—', isMaster:true}];
+    var all = master.concat(list||[]);
+    document.getElementById('adminsTbl').innerHTML = all.map(function(a){
+      return '<tr>'
+        +'<td><div style="display:flex;align-items:center;gap:8px">'
+        +(a.isMaster?'<span style="font-size:18px">&#128081;</span>':'<span style="font-size:18px">&#128100;</span>')
+        +'<div><div class="td-name">'+a.name+'</div>'
+        +(a.isMaster?'<div class="td-desc">To\'liq huquq</div>':'<div class="td-desc">Admin huquq</div>')
+        +'</div></div></td>'
+        +'<td style="color:var(--muted);font-size:12px">'+(a.createdAt||'—')+'</td>'
+        +'<td>'+(a.isMaster?'<span style="font-size:11px;color:var(--success)">✅ Asosiy</span>':'<button class="btn btn-del btn-sm" onclick="removeAdmin(\''+a.name+'\')">&#128465; O\'chirish</button>')+'</td>'
+        +'</tr>';
+    }).join('');
+
+    // Direct link
+    var mk = await fetch('/sarmon-api/api/masterkey').then(r=>r.json()).catch(()=>({}));
+    if(mk.key){
+      var link = window.location.origin + '/SARMANBOBO/admin.html?x=' + mk.key;
+      document.getElementById('myDirectLink').textContent = link;
+      document.getElementById('myDirectLink').dataset.url = link;
+    }
+  }catch(e){ console.error(e); }
+}
+
+function openAddAdmin(){
+  document.getElementById('newAdminName').value='';
+  document.getElementById('newAdminPass').value='';
+  document.getElementById('newAdminPass2').value='';
+  document.getElementById('addAdminModal').classList.add('open');
+}
+
+async function saveNewAdmin(){
+  var name = document.getElementById('newAdminName').value.trim();
+  var p1   = document.getElementById('newAdminPass').value;
+  var p2   = document.getElementById('newAdminPass2').value;
+  if(!name){ toast('Ism kiriting!','error'); return; }
+  if(p1.length < 6){ toast('Parol kamida 6 belgi!','error'); return; }
+  if(p1 !== p2){ toast('Parollar mos kelmadi!','error'); return; }
+  var r = await fetch('/sarmon-api/api/admins/add',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
+    body:JSON.stringify({name:name, password:p1})
+  });
+  var d = await r.json();
+  if(d.ok){
+    document.getElementById('addAdminModal').classList.remove('open');
+    toast(name+' admin sifatida qo\'shildi!','success');
+    loadAdmins();
+  } else { toast(d.msg||'Xato!','error'); }
+}
+
+async function removeAdmin(name){
+  if(!confirm(name+' ni adminlikdan olib tashlaysizmi?')) return;
+  var r = await fetch('/sarmon-api/api/admins/remove',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
+    body:JSON.stringify({name:name})
+  });
+  var d = await r.json();
+  if(d.ok){ toast(name+' olib tashlandi!','success'); loadAdmins(); }
+}
+
+function copyDirectLink(){
+  var el = document.getElementById('myDirectLink');
+  var url = el.dataset.url || el.textContent;
+  navigator.clipboard.writeText(url).then(function(){
+    toast('Havola nusxalandi!','success');
+  });
+}
+
+
+  // Auto-login: URL da ?x= parametr bolsa
+  var _urlP = new URLSearchParams(window.location.search);
+  var _mk = _urlP.get('x');
+  if(_mk){
+    fetch('/sarmon-api/api/autologin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:_mk})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.ok){
+        TOKEN=d.token;
+        history.replaceState({},'','/SARMANBOBO/admin.html');
+        document.getElementById('loginPage').style.display='none';
+        document.getElementById('app').style.display='block';
+        loadAll();
+      }
+    }).catch(function(){});
+  }
+
+</script>
+</body></html>

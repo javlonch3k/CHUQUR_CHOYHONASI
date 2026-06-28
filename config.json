@@ -1,0 +1,9 @@
+{
+  "restaurantName": "CHUQUR CHOYHONASI",
+  "adminPassword": "admin123",
+  "wifi": {
+    "ssid": "CHUQUR_WiFi",
+    "password": "chuqur2024"
+  },
+  "wifiVisible": false
+}

@@ -2,11 +2,225 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>CHUQUR CHOYHONASI — Menyu</title>
+<title>CHUQUR CHOYHONASI — Dark Test</title>
+<link rel="icon" type="image/png" href="https://via.placeholder.com/80x80/141c24/3fb950?text=CC?v=3"/>
+<link rel="apple-touch-icon" href="https://via.placeholder.com/80x80/141c24/3fb950?text=CC?v=3"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="style.css"/>
+<style>
+:root{--maroon:#3fb950;--gold:#3fb950;--gold-lt:#56d364;--cream:#141c24;--text:#e6edf3;--muted:#8b949e;--border:rgba(255,255,255,.08);--white:#0d1117;--success:#3fb950}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;font-family:'Inter',sans-serif;min-height:100vh}
+
+/* HEADER */
+.uzbek-pattern{
+  background-color:#0b0f14;
+  background-image:url('');
+  background-size:cover;
+  background-position:center top;
+  position:relative;
+}
+.uzbek-pattern::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(0,0,0,.1) 0%,
+    rgba(0,0,0,.35) 60%,
+    rgba(13,17,23,.98) 100%
+  );
+  pointer-events:none;
+}
+header{position:relative;overflow:hidden;padding:0}
+.header-inner{padding:18px 20px 24px;text-align:center;position:relative;z-index:2}
+.header-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(63,185,80,.15);border:1px solid rgba(63,185,80,.4);border-radius:20px;padding:3px 12px;font-size:10px;color:var(--gold-lt);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+header h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1;letter-spacing:1px}
+
+header p{color:rgba(255,255,255,.5);font-size:11px;margin-top:5px;letter-spacing:1px;text-transform:uppercase}
+.gold-ornament{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0 0;color:#3fb950;font-size:12px;letter-spacing:4px}
+
+/* SARLAVHA SHIMMER */@keyframes colorWave{
+  0%{color:#56d364;text-shadow:0 0 20px rgba(86,211,100,.8),0 0 40px rgba(86,211,100,.4)}
+  25%{color:#ffffff;text-shadow:0 0 20px rgba(255,255,255,.9),0 0 40px rgba(255,255,255,.3)}
+  50%{color:#3fb950;text-shadow:0 0 20px rgba(63,185,80,.8),0 0 40px rgba(63,185,80,.4)}
+  75%{color:#ffffff;text-shadow:0 0 20px rgba(255,255,255,.9),0 0 40px rgba(255,255,255,.3)}
+  100%{color:#56d364;text-shadow:0 0 20px rgba(86,211,100,.8),0 0 40px rgba(86,211,100,.4)}
+}
+@keyframes titleFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+.header-title-shimmer{
+  color:#56d364;
+  animation:colorWave 3s ease-in-out infinite, titleFloat 4s ease-in-out infinite;
+  display:inline-block;
+  font-style:normal;
+}
+
+  100%{background-position:-200% center}
+}
+
+  50%{transform:translateY(-3px)}
+}
+
+.gold-ornament::before,.gold-ornament::after{content:'';flex:1;max-width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(200,146,42,.7))}
+.tile-band{
+  position:relative;
+  z-index:3;
+  height:24px;
+  overflow:hidden;
+  background:#0d1117;
+}
+.tile-band::before{
+  content:'';
+  display:block;
+  position:absolute;
+  top:0;left:0;right:0;
+  height:24px;
+  background:
+    radial-gradient(circle 12px at 12px 0px, #0d1117 12px, transparent 12px),
+    radial-gradient(circle 12px at 36px 0px, #0d1117 12px, transparent 12px);
+  background-size:48px 24px;
+  background-position:0 0;
+  background-color:transparent;
+  filter:drop-shadow(0 2px 4px rgba(63,185,80,.2));
+}
+.tile-band::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(63,185,80,.4),transparent);
+}
+
+
+50%,100%{opacity:.15}}
+
+
+
+/* BAHOLASH */
+.rating-bar{background:#0d1117;border-bottom:1px solid rgba(255,255,255,.08);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rating-left{display:flex;align-items:center;gap:10px}
+.rating-avg{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--maroon);line-height:1}
+.rating-info{display:flex;flex-direction:column;gap:2px}
+.stars-display{display:flex;gap:2px}
+.star-disp{font-size:18px}
+.rating-count{font-size:11px;color:var(--muted);margin-top:2px}
+.rating-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.rating-ask{font-size:12px;color:var(--muted);margin-bottom:4px}
+.stars-input{display:flex;gap:4px}
+.star-inp{font-size:24px;cursor:pointer;transition:transform .15s;color:#ccc;user-select:none;-webkit-user-select:none}
+.star-inp.lit{color:#C8922A}
+.star-inp:hover{transform:scale(1.2)}
+.rated-msg{font-size:12px;color:var(--success);font-weight:600;display:none}
+@keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+
+/* WIFI */
+.wifi-wrap{padding:6px 14px 8px;background:#0d1117;border-bottom:1px solid rgba(255,255,255,.08)}
+.wifi-card{background:#141c24;border:1px solid rgba(63,185,80,.2);border-radius:12px;padding:9px 13px;display:flex;align-items:center;gap:10px}
+.wifi-card::before{display:none}
+.wifi-top{display:none}
+.wifi-icon-box{width:30px;height:30px;border-radius:8px;background:rgba(107,30,30,.08);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.wifi-title{display:none}
+.wifi-subtitle{display:none}
+.wifi-free{background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.25);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;color:#16a34a;letter-spacing:.3px}
+.wifi-rows{flex:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wifi-row{background:transparent;border:none;border-radius:0;padding:0;margin-bottom:0;display:inline-flex;align-items:center;gap:5px}
+.wifi-row-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:0}
+.wifi-row-val{font-size:12px;font-weight:700;color:var(--text)}
+.wifi-row-val.pass{font-family:monospace;font-size:12px;letter-spacing:1px;color:var(--muted)}
+.wifi-sep{color:var(--border);font-size:14px}
+.wifi-btn{background:rgba(107,30,30,.08);border:1px solid var(--border);border-radius:7px;padding:4px 10px;color:var(--maroon);font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;flex-shrink:0}
+.wifi-btn:active{background:rgba(107,30,30,.15)}
+.wifi-signal{display:flex;align-items:flex-end;gap:2px;height:14px;flex-shrink:0}
+.wifi-signal span{width:3px;border-radius:2px;background:linear-gradient(180deg,var(--maroon),rgba(107,30,30,.4));animation:waveBar 1.4s ease-in-out infinite;transform-origin:bottom}
+.wifi-signal span:nth-child(1){height:4px;animation-delay:0s}
+.wifi-signal span:nth-child(2){height:7px;animation-delay:.15s}
+.wifi-signal span:nth-child(3){height:10px;animation-delay:.3s}
+.wifi-signal span:nth-child(4){height:12px;animation-delay:.45s}
+.wifi-signal span:nth-child(5){height:14px;animation-delay:.6s}
+@keyframes waveBar{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* SEARCH */
+
+
+
+
+
+/* KATEGORIYALAR */
+.cats-wrap{background:#0d1117;padding:16px 0 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.cats-title{padding:0 16px 12px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;display:flex;align-items:center;gap:8px}
+.cats-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.cats-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.cats-scroll::-webkit-scrollbar{display:none}
+.cat-card{flex-shrink:0;width:80px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer}
+.cat-icon-wrap{width:68px;height:68px;border-radius:18px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:2.5px solid transparent;transition:transform .2s,box-shadow .2s}
+.cat-card.active .cat-icon-wrap{border-color:#3fb950;box-shadow:0 4px 16px rgba(63,185,80,.3);transform:translateY(-2px)}
+.cat-card.active .cat-icon-wrap::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:6px;height:6px;background:var(--gold);border-radius:50%}
+.ci-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;transition:transform .3s}
+.cat-card:hover .ci-bg-img{transform:scale(1.08)}
+.ci-ov{position:absolute;inset:0;background:rgba(0,0,0,.22);border-radius:16px;z-index:1}
+.cat-label{font-size:11px;font-weight:700;color:#e6edf3;text-align:center;line-height:1.2}
+.cat-card.active .cat-label{color:#3fb950}
+.cat-count{font-size:10px;color:var(--muted)}
+.ci-all{background:linear-gradient(135deg,#1a2332,#141c24)}
+
+/* TAOM KARTALAR */
+.section-head{padding:22px 16px 10px;display:flex;align-items:center;gap:12px}
+.section-head h3{font-family:'Playfair Display',serif;font-size:19px;color:#3fb950;font-weight:700}
+.section-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.food-card{display:flex;margin:0 16px 12px;background:#141c24;border-radius:16px;border:1px solid rgba(255,255,255,.08);overflow:hidden;cursor:pointer;box-shadow:0 2px 8px rgba(107,30,30,.06);transition:transform .15s}
+.food-card:active{transform:scale(.98)}
+.food-img{width:100px;height:100px;flex-shrink:0;object-fit:cover;background:#f5ece0}
+.food-img-placeholder{width:100px;height:100px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#f9f0e0,#f0e0c8)}
+.food-info{flex:1;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.food-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;margin-bottom:5px}
+.fb-pop{background:#fff8e8;color:var(--gold);border:1px solid #f0d890}
+.fb-hot{background:#fff0f0;color:#c62828;border:1px solid #f0c0c0}
+.fb-new{background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7}
+.food-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:4px}
+.food-desc{font-size:11px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.food-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.food-price{font-size:15px;font-weight:700;color:#3fb950}
+.food-price span{font-size:10px;font-weight:400;color:var(--muted)}
+.food-arrow{width:28px;height:28px;background:var(--cream);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}
+.empty{text-align:center;padding:56px 20px;color:var(--border)}
+.empty span{font-size:52px;display:block;margin-bottom:12px}
+
+/* YARATUVCHI */
+.dev-card{margin:16px 16px 8px;background:linear-gradient(135deg,#0b0f14 0%,#141c24 50%,#0b0f14 100%);border-radius:20px;padding:20px 20px 18px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.dev-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(200,146,42,.15),transparent 70%);border-radius:50%}
+.dev-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.dev-avatar{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#C8922A,#F2D98A);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 2px 10px rgba(200,146,42,.4)}
+.dev-info h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:3px}
+.dev-info p{color:rgba(255,255,255,.45);font-size:12px}
+.dev-badge{margin-left:auto;background:rgba(200,146,42,.15);border:1px solid rgba(200,146,42,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#F2D98A;font-weight:600;white-space:nowrap}
+.dev-links{display:flex;gap:8px;flex-wrap:wrap}
+.dev-link{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:9px 14px;color:#fff;text-decoration:none;font-size:13px;font-weight:500;transition:all .2s;flex:1;min-width:120px}
+.dev-link:active{background:rgba(200,146,42,.2);color:#F2D98A}
+.dl-icon{font-size:18px;flex-shrink:0}
+.dl-txt{display:flex;flex-direction:column}
+.dl-lbl{font-size:10px;opacity:.5;font-weight:400}
+.dl-val{font-size:12px;font-weight:600}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(28,10,0,.6);z-index:100;align-items:flex-end;backdrop-filter:blur(6px)}
+.overlay.open{display:flex}
+.sheet{background:#141c24;border-radius:28px 28px 0 0;width:100%;padding:0 0 44px;animation:up .26s ease;position:relative;overflow:hidden}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sh-handle{width:40px;height:4px;background:rgba(255,255,255,.5);border-radius:2px;position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:2}
+.sh-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px;margin-bottom:8px;background:#fff8e8;color:var(--gold);border:1px solid #f0d890}
+.sh-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--text);margin-bottom:8px}
+.sh-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:16px}
+.sh-price-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--cream);border-radius:14px;border:1px solid var(--border)}
+.sh-price{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--maroon)}
+.sh-price span{font-size:13px;font-weight:400;color:var(--muted)}
+.sh-tag{font-size:12px;color:var(--muted);font-style:italic}
+.close-x{position:absolute;top:14px;right:16px;background:rgba(0,0,0,.35);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;z-index:2}
+.sheet-body{padding:20px 20px 0}
+</style>
 </head>
 <body>
+
 
 <!-- HEADER -->
 <header class="uzbek-pattern">
@@ -19,21 +233,101 @@
 </header>
 <div class="tile-band"></div>
 
+
+
+<div class="wifi-wrap" id="wifiWrap" style="display:none">
+  <div class="wifi-card">
+    <div class="wifi-icon-box">📶</div>
+    <div class="wifi-rows">
+      <div class="wifi-row">
+        <span class="wifi-row-lbl">Wi-Fi:</span>
+        <span class="wifi-row-val" id="wifiSsid">SarmonBobo_WiFi</span>
+      </div>
+      <span class="wifi-sep">·</span>
+      <div class="wifi-row">
+        <span class="wifi-row-lbl">Parol:</span>
+        <span class="wifi-row-val pass" id="wifiPass">••••••</span>
+      </div>
+    </div>
+    <div class="wifi-signal"><span></span><span></span><span></span><span></span><span></span></div>
+    <button class="wifi-btn" onclick="togglePass(this)">Ko'rish</button>
+    <div class="wifi-free">FREE</div>
+  </div>
+</div>
+</div>
+
+<!-- BAHOLASH -->
+<div class="rating-bar" id="ratingBar">
+  <div class="rating-left">
+    <div class="rating-avg" id="rAvg">5.0</div>
+    <div class="rating-info">
+      <div class="stars-display" id="rStarsDisp"></div>
+      <div class="rating-count" id="rCount">0 ta baho</div>
+    </div>
+  </div>
+  <div class="rating-right">
+    <div class="rating-ask" id="rAsk">Bahoyingiz?</div>
+    <div class="stars-input" id="rStarsInp">
+      <span class="star-inp" onclick="rate(1)" onmouseenter="hoverStar(1)" onmouseleave="unhoverStar()">★</span>
+      <span class="star-inp" onclick="rate(2)" onmouseenter="hoverStar(2)" onmouseleave="unhoverStar()">★</span>
+      <span class="star-inp" onclick="rate(3)" onmouseenter="hoverStar(3)" onmouseleave="unhoverStar()">★</span>
+      <span class="star-inp" onclick="rate(4)" onmouseenter="hoverStar(4)" onmouseleave="unhoverStar()">★</span>
+      <span class="star-inp" onclick="rate(5)" onmouseenter="hoverStar(5)" onmouseleave="unhoverStar()">★</span>
+    </div>
+    <div class="rated-msg" id="ratedMsg"></div>
+  </div>
+</div>
+
+<!-- WIFI --></div>
+
+
+
 <!-- KATEGORIYALAR -->
 <div class="cats-wrap">
   <div class="cats-title">Kategoriyalar</div>
-  <div class="cats-scroll" id="tabs"></div>
+  <div class="cats-scroll" id="tabs">
+    <div class="cat-card active" data-cat="all">
+      <div class="cat-icon-wrap ci-all">🍽️</div>
+      <div class="cat-label">Hammasi</div>
+      <div class="cat-count" id="allCount">— ta</div>
+    </div>
+  </div>
 </div>
 
 <!-- TAOMLAR -->
 <div id="container"></div>
 
+<!-- YARATUVCHI -->
+<div class="dev-card">
+  <div class="dev-top">
+    <div class="dev-avatar">&#128104;&#8205;&#128187;</div>
+    <div class="dev-info"><h4>Bu saytni yoqtirdingizmi?</h4><p>Siz uchun ham shunday sayt yaratamiz</p></div>
+    <div class="dev-badge">&#10022; Dasturchi</div>
+  </div>
+  <div class="dev-links">
+    <a class="dev-link" href="tel:+998 XX XXX XX XX"><span class="dl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="#4CAF50"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><span class="dl-txt"><span class="dl-lbl">Telefon</span><span class="dl-val">+998 XX XXX XX XX</span></span></a>
+    <a class="dev-link" href="https://t.me/javlonch3k" target="_blank"><span class="dl-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="#29A9EA"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.612c-.152.657-.548.818-1.11.509l-3.073-2.265-1.483 1.427c-.163.163-.3.3-.617.3l.22-3.11 5.672-5.123c.247-.22-.054-.341-.382-.122l-7.01 4.412-3.018-.943c-.655-.205-.669-.655.137-.97l11.775-4.543c.546-.198 1.023.133.929.816z"/></svg></span><span class="dl-txt"><span class="dl-lbl">Telegram</span><span class="dl-val">Жавлонбек</span></span></a>
+    <a class="dev-link" href="https://instagram.com/javlonch3k" target="_blank"><span class="dl-icon"><svg width="18" height="18" viewBox="0 0 24 24"><defs><linearGradient id="ig_g" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="33%" stop-color="#dc2743"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><path fill="url(#ig_g)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></span><span class="dl-txt"><span class="dl-lbl">Instagram</span><span class="dl-val">Жавлонбек</span></span></a>
+  </div>
+</div>
+
+
 <!-- FOOTER -->
-<div class="footer-wrap">
-  <div class="gold-ornament">✦ ✦ ✦</div>
-  <div class="footer-name">CHUQUR CHOYHONASI — Sifatli xizmat va mazali taomlar</div>
-  <div class="footer-info">📍 Qarshi shahri | 📞 +998 XX XXX XX XX</div>
-  <div class="footer-copy" id="adminTap">CHUQUR CHOYHONASI © 2024</div>
+<div style="text-align:center;padding:28px 16px 40px;border-top:1px solid var(--border);margin-top:8px">
+  <div style="color:var(--gold);font-size:18px;letter-spacing:8px;margin-bottom:8px">✦ ✦ ✦</div>
+  <div style="font-family:'Playfair Display',serif;font-size:13px;color:var(--muted);font-style:italic">CHUQUR CHOYHONASI — Sifatli xizmat va mazali taomlar</div>
+  <div id="adminTap" style="font-size:11px;color:var(--border);margin-top:6px;cursor:default;user-select:none">CHUQUR CHOYHONASI © 2026</div>
+  <script>
+  (function(){
+    var t=0,last=0;
+    document.getElementById('adminTap').addEventListener('click',function(){
+      var now=Date.now();
+      t=(now-last<600)?t+1:1;
+      last=now;
+      if(t>=3){t=0;window.open('admin.html','_blank');}
+    });
+  })();
+  </script>
 </div>
 
 <!-- MODAL -->
@@ -41,7 +335,7 @@
   <div class="sheet">
     <div class="sh-handle"></div>
     <button class="close-x" onclick="document.getElementById('overlay').classList.remove('open')">✕</button>
-    <div id="shImg"></div>
+    <div id="shImg" style="width:100%;background:#141c24;display:flex;align-items:center;justify-content:center;min-height:80px;max-height:280px;overflow:hidden"></div>
     <div class="sheet-body">
       <div id="shBadge"></div>
       <div class="sh-name" id="shName"></div>
@@ -51,18 +345,167 @@
   </div>
 </div>
 
-<script src="menu-data.js"></script>
-<script src="app.js"></script>
+
 <script>
-(function(){
-  var t=0,last=0;
-  document.getElementById('adminTap').addEventListener('click',function(){
-    var now=Date.now();
-    t=(now-last<600)?t+1:1;
-    last=now;
-    if(t>=4){t=0;window.location.href='admin.html';}
+/* ══ O'ZGARUVCHILAR ══ */
+let MENU=[], CATS_DATA=[], activeCat='all', WIFI_PASS='', myLastRating=0;
+const EMOJIS={choy:'🍵',taom:'🍲',kabob:'🍢',non:'🫓',shirinlik:'🍯',ichimlik:'🥤'};
+const fmt = p => p.toLocaleString('uz-UZ')+' <span>so\'m</span>';
+
+/* ══ SOAT ══ */
+const MO=['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'];
+const MS=['Yan','Fev','Mar','Apr','May','Iyn','Iyl','Avg','Sen','Okt','Noy','Dek'];
+const KU=['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'];
+function tick(){
+  const n=new Date();
+  const pad=x=>String(x).padStart(2,'0');
+  document.getElementById('dtDay').textContent=n.getDate();
+  document.getElementById('dtMonth').textContent=MS[n.getMonth()];
+  document.getElementById('dtWeekday').textContent=KU[n.getDay()];
+  document.getElementById('dtDate').textContent=n.getDate()+' '+MO[n.getMonth()]+', '+n.getFullYear();
+  document.getElementById('dtH').textContent=pad(n.getHours());
+  document.getElementById('dtM').textContent=pad(n.getMinutes());
+  document.getElementById('dtS').textContent=pad(n.getSeconds());
+}
+
+
+/* ══ WIFI ══ */
+let passVis=false;
+function togglePass(btn){
+  passVis=!passVis;
+  document.getElementById('wifiPass').textContent=passVis?WIFI_PASS:'••••••••••••';
+  btn.textContent=passVis?'Yashirish':'Ko\'rish';
+  if(passVis) setTimeout(()=>{passVis=false;document.getElementById('wifiPass').textContent='••••••••••••';btn.textContent='Ko\'rish';},5000);
+}
+
+/* ══ BAHOLASH ══ */
+function hoverStar(v){document.querySelectorAll('.star-inp').forEach((s,i)=>s.style.color=i<v?'#C8922A':i<myLastRating?'#C8922A':'#ccc');}
+function unhoverStar(){document.querySelectorAll('.star-inp').forEach((s,i)=>s.style.color=i<myLastRating?'#C8922A':'#ccc');}
+function hilite(v){document.querySelectorAll('.star-inp').forEach((s,i)=>s.style.color=i<v?'#C8922A':'#ccc');}
+function updateRatingUI(d){
+  const avg=d.avg||5;
+  document.getElementById('rAvg').textContent=avg.toFixed(1);
+  document.getElementById('rCount').textContent=(d.count||0)+' ta baho';
+  const disp=document.getElementById('rStarsDisp');
+  disp.innerHTML=[1,2,3,4,5].map(i=>`<span class="star-disp" style="color:${i<=avg?'#C8922A':'#ddd'}">★</span>`).join('');
+}
+async function rate(v){
+  myLastRating=v; hilite(v);
+  localStorage.setItem('chuqur_my_rating',v);
+  document.getElementById('rAsk').textContent='Bahoni o\'zgartirish:';
+  const m=document.getElementById('ratedMsg');
+  m.textContent='✅ Bahoingiz: '+'★'.repeat(v);
+  m.style.display='block';
+}
+async function loadRatings(){
+  try{const r=await fetch('./ratings.json');const d=await r.json();updateRatingUI(d);}catch(e){}
+  const s=parseInt(localStorage.getItem('chuqur_my_rating')||'0');
+  if(s>0){myLastRating=s;hilite(s);document.getElementById('rAsk').textContent='Bahoni o\'zgartirish:';const m=document.getElementById('ratedMsg');m.textContent='✅ Bahoingiz: '+'★'.repeat(s);m.style.display='block';}
+}
+
+/* ══ KATEGORIYALAR ══ */
+function buildCatTabs(){
+  const tabs=document.getElementById('tabs');
+  const allBtn=tabs.querySelector('[data-cat="all"]');
+  tabs.innerHTML='';
+  if(allBtn){allBtn.querySelector('.cat-count').textContent=MENU.length+' ta';tabs.appendChild(allBtn);}
+  CATS_DATA.forEach(c=>{
+    const div=document.createElement('div');
+    div.className='cat-card'+(activeCat===c.id?' active':'');
+    div.dataset.cat=c.id;
+    const cnt=MENU.filter(m=>m.cat===c.id).length;
+    const imgH=c.img?`<img class="ci-bg-img" src="${c.img}" onerror="this.style.display='none'"><div class="ci-ov"></div>`:'';
+    div.innerHTML=`<div class="cat-icon-wrap" style="background:${c.bg||'#f5ece0'}">${imgH}</div><div class="cat-label">${c.label}</div><div class="cat-count">${cnt} ta</div>`;
+    tabs.appendChild(div);
   });
-})();
+  tabs.addEventListener('click',e=>{
+    const t=e.target.closest('.cat-card');if(!t)return;
+    document.querySelectorAll('.cat-card').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');activeCat=t.dataset.cat;render();
+  });
+}
+
+/* ══ MENYU ══ */
+function cardHTML(it){
+  const badge=it.badge==='pop'?'<div class="food-badge fb-pop">⭐ Mashhur</div>':it.badge==='hot'?'<div class="food-badge fb-hot">🌶 O\'tkir</div>':it.badge==='new'?'<div class="food-badge fb-new">🆕 Yangi</div>':'';
+  const em=EMOJIS[it.cat]||'🍽';
+  return `<div class="food-card" onclick="openSheet(${it.id})">
+    <img class="food-img" src="${it.img||''}" alt="${it.name}" onerror="this.outerHTML='<div class=food-img-placeholder>${em}</div>'">
+    <div class="food-info"><div class="food-top">${badge}<div class="food-name">${it.name}</div><div class="food-desc">${it.desc||''}</div></div>
+    <div class="food-bottom"><div class="food-price">${fmt(it.price)}</div><div class="food-arrow">›</div></div></div></div>`;
+}
+function render(){
+  const q='';
+  let items=MENU.filter(i=>(!q||i.name.toLowerCase().includes(q)||i.desc?.toLowerCase().includes(q))&&(activeCat==='all'||i.cat===activeCat));
+  if(!items.length){document.getElementById('container').innerHTML='<div class="empty"><span>🤷</span>Hech narsa topilmadi</div>';return;}
+  if(activeCat!=='all'){document.getElementById('container').innerHTML=items.map(cardHTML).join('');return;}
+  const CATS_MAP={};CATS_DATA.forEach(c=>{CATS_MAP[c.id]=c;});
+  const g={};items.forEach(i=>{if(!g[i.cat])g[i.cat]=[];g[i.cat].push(i);});
+  document.getElementById('container').innerHTML=CATS_DATA.map(c=>{
+    const its=g[c.id];if(!its||!its.length)return'';
+    return`<div class="section-head"><h3>${c.icon||''} ${c.label}</h3><div class="line"></div></div>${its.map(cardHTML).join('')}`;
+  }).join('');
+}
+
+
+/* ══ MODAL ══ */
+function openSheet(id){
+  const it=MENU.find(m=>m.id===id);if(!it)return;
+  const em=EMOJIS[it.cat]||'🍽';
+  const si=document.getElementById('shImg');
+  si.innerHTML=it.img?`<img src="${it.img}" style="width:100%;max-height:280px;object-fit:contain;display:block;background:#141c24" onerror="this.outerHTML='<div style=font-size:80px;text-align:center;padding:40px 0>${em}</div>'">`:`<div style="font-size:80px;text-align:center;padding:40px 0">${em}</div>`;
+  const badges={pop:'<div class="sh-badge">⭐ Mashhur</div>',hot:'<div class="sh-badge" style="background:#fff0f0;color:#c62828;border-color:#fcc">🌶 O\'tkir</div>',new:'<div class="sh-badge" style="background:#e8f5e9;color:#166534;border-color:#a5d6a7">🆕 Yangi</div>'};
+  document.getElementById('shBadge').innerHTML=badges[it.badge]||'';
+  document.getElementById('shName').textContent=it.name;
+  document.getElementById('shDesc').textContent=it.desc||'';
+  document.getElementById('shPrice').innerHTML=fmt(it.price);
+  document.getElementById('overlay').classList.add('open');
+}
+
+/* ══ INIT ══ */
+async function init(){
+  try{
+    const [mR,cR,cfR]=await Promise.all([
+      fetch('./menu.json'),
+      fetch('./categories.json'),
+      fetch('./config.json')
+    ]);
+    MENU=await mR.json();
+    CATS_DATA=await cR.json();
+    const cfg=await cfR.json();
+
+    // Stats
+
+
+
+    // WiFi - faqat wifiVisible===true bo'lganda ko'rsatamiz
+    if(cfg.wifiVisible===true){
+      if(cfg.wifi){
+        WIFI_PASS=cfg.wifi.password||'';
+        document.getElementById('wifiSsid').textContent=cfg.wifi.ssid||'SarmonBobo_WiFi';
+      }
+      document.getElementById('wifiWrap').style.display='block';
+    }
+
+    // Restoran nomi
+    if(cfg.restaurantName){
+      document.title=cfg.restaurantName+' — Menyu';
+      const h1=document.querySelector('header h1');
+      if(h1){h1.innerHTML='<span class="header-title-shimmer">'+cfg.restaurantName+'</span>';}
+    }
+
+    buildCatTabs();
+    await loadRatings();
+    render();
+  }catch(e){
+    console.warn('API xatosi:',e);
+    render();
+  }
+}
+init();
+
+ // 10 daqiqada bir yangilanadi
+
 </script>
 </body>
 </html>

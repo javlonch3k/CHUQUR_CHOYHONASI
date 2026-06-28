@@ -1,0 +1,50 @@
+[
+  {
+    "id": "taomlar",
+    "icon": "🥘",
+    "label": "1-OVQAT",
+    "bg": "#13d110",
+    "bgIcon": "#432d2d",
+    "img": "/SARMANBOBO/uploads/1782581176524.webp"
+  },
+  {
+    "id": "taom",
+    "icon": "🥘",
+    "label": "2-OVQAT",
+    "bg": "#00bd10",
+    "bgIcon": "#517052",
+    "img": "/SARMANBOBO/uploads/1782581193259.jpg"
+  },
+  {
+    "id": "salat",
+    "icon": "🥗",
+    "label": "SALATLAR VA CHOY",
+    "bg": "#11df22",
+    "bgIcon": "#1eae22",
+    "img": "/SARMANBOBO/uploads/1782581617373.jpg"
+  },
+  {
+    "id": "shashlik",
+    "icon": "🍢",
+    "label": "SHASHLIKLAR",
+    "bg": "#19f02b",
+    "bgIcon": "#09ec10",
+    "img": "/SARMANBOBO/uploads/1782581761894.jpeg"
+  },
+  {
+    "id": "ichimlik",
+    "icon": "🥤",
+    "label": "SALQIN ICHIMLIKLAR",
+    "bg": "#04fb18",
+    "bgIcon": "#05eb0c",
+    "img": "/SARMANBOBO/uploads/1782581842146.jpg"
+  },
+  {
+    "id": "alkagol",
+    "icon": "🍾",
+    "label": "SPIRTNOY ICHIMLIKAR",
+    "bg": "#01f415",
+    "bgIcon": "#08fd10",
+    "img": "/SARMANBOBO/uploads/1782581944031.jpg"
+  }
+]

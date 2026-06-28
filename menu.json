@@ -1,0 +1,308 @@
+[
+  {
+    "id": 1,
+    "name": "Ko'k choy",
+    "price": 2000,
+    "cat": "salat",
+    "desc": "Yuqori sifatli ko'k choy. Temir choynak bilan uzatiladi.",
+    "badge": "pop",
+    "img": "https://assets.shortpedia.com/uploads/2022/02/07/1644229618.webp?tr=w-1200,h-600,cm-pad_resize,bg-F3F3F3"
+  },
+  {
+    "id": 2,
+    "name": "Qora choy",
+    "price": 3000,
+    "cat": "salat",
+    "desc": "Kuchli qora choy",
+    "badge": "pop",
+    "img": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=200&h=200&fit=crop"
+  },
+  {
+    "id": 4,
+    "name": "Limonli choy",
+    "price": 10000,
+    "cat": "salat",
+    "desc": "Yangi limon tilmalari bilan qaynatilgan choy.",
+    "badge": "pop",
+    "img": "https://yt3.googleusercontent.com/ytc/AIdro_lUukmcjgAUxrO1l9UZA-6N08i6PRBJboKxqZI5q2m9Ijo=s900-c-k-c0x00ffffff-no-rj"
+  },
+  {
+    "id": 6,
+    "name": "Kiyik o'ti choy",
+    "price": 5000,
+    "cat": "salat",
+    "desc": "Tabiiy va tog' o'tlari shifobaxsh",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/i?id=4af23379f1db235124c0d0cf63096c82d4a6912e-5910984-images-thumbs&n=13"
+  },
+  {
+    "id": 7,
+    "name": "SARMAN BOBO OSHI",
+    "price": 35000,
+    "cat": "taom",
+    "desc": "An'anaviy o'zbek palovi: guruch, sabzi, piyoz, go'sht.",
+    "badge": "pop",
+    "img": "https://i.ytimg.com/vi/n5V0_mbT04k/maxresdefault.jpg"
+  },
+  {
+    "id": 8,
+    "name": "SHURVA",
+    "price": 25000,
+    "cat": "taomlar",
+    "desc": "Qo'y go'shti, kartoshka va sabzavotli sho'rva.",
+    "badge": "pop",
+    "img": "https://restoransheikh.ru/upload/iblock/fa9/fa91b065446c56972ad5e27091c180ae.jpg"
+  },
+  {
+    "id": 9,
+    "name": "SUYUQ LAG'MON",
+    "price": 27000,
+    "cat": "taomlar",
+    "desc": "Qo'lda cho'zilgan lag'mon — go'sht va sabzavotli.",
+    "badge": "pop",
+    "img": "https://i.ytimg.com/vi/6pYwXJS1PEQ/maxresdefault.jpg"
+  },
+  {
+    "id": 10,
+    "name": "SARMAN BOBO TANDIR GUSHTI",
+    "price": 250000,
+    "cat": "taom",
+    "desc": "Quy gushtidan mazzali tandir.",
+    "badge": "pop",
+    "img": "https://api-portal.gov.uz/uploads/146/2025/05/03/17c2562f-4776-c7b6-c58d-0beca4d398f3_lists_slider_.jpg"
+  },
+  {
+    "id": 11,
+    "name": "QOVURMA LAG'MON",
+    "price": 35000,
+    "cat": "taom",
+    "desc": "Qo'lda cho'zilgan lag'mon — go'sht , sabzavotli, tuxum va sasiska.",
+    "badge": "pop",
+    "img": "https://media-cdn.tripadvisor.com/media/photo-s/1b/b0/f0/80/caption.jpg"
+  },
+  {
+    "id": 12,
+    "name": "MASTAVA",
+    "price": 25000,
+    "cat": "taomlar",
+    "desc": "Guruchli sho'rva: go'sht, sabzavot va ziravorlar.",
+    "badge": "pop",
+    "img": "https://i.kafushka.ru/i/ed/98/ed98dc93a303822086fd9b6e219aab62.jpg"
+  },
+  {
+    "id": 13,
+    "name": "TOVUQ JIZ",
+    "price": 80000,
+    "cat": "taom",
+    "desc": "MAZZALI TOVUQ",
+    "badge": "pop",
+    "img": "https://i.ytimg.com/vi/6SUByvhhjLI/maxresdefault.jpg"
+  },
+  {
+    "id": 14,
+    "name": "TUSHONKA",
+    "price": 40000,
+    "cat": "taomlar",
+    "desc": "MOL GUSHTIDAN",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/get-mpic/5232049/img_id445263396422644735.jpeg/orig"
+  },
+  {
+    "id": 15,
+    "name": "SARMAN BOBO QIZILCHASI",
+    "price": 200000,
+    "cat": "taom",
+    "desc": "SHIRVOZ GUSHTI",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/i?id=bae99b67411292b25cde53f0b1fdec1b1f93a42e-4338206-images-thumbs&n=13"
+  },
+  {
+    "id": 16,
+    "name": "KARTOSHKA FREE",
+    "price": 20000,
+    "cat": "taom",
+    "desc": "QOVURILGAN KARTOSHKA",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/i?id=d1722c5dce25e1f9e87a8afd26a7d29a80c3796a-8186552-images-thumbs&n=13"
+  },
+  {
+    "id": 17,
+    "name": "SARMAN BOBO SOMSASI",
+    "price": 7000,
+    "cat": "taom",
+    "desc": "Tandirda yangi pishirilgan SOMSA",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/i?id=32039ea320382fd45b6b251a359204bdd53e00f9-12421721-images-thumbs&n=13"
+  },
+  {
+    "id": 18,
+    "name": "G'IJDUVON SHASHLIK",
+    "price": 60000,
+    "cat": "shashlik",
+    "desc": "MOL GUSHTIDAN QIYMA",
+    "badge": "pop",
+    "img": "https://i.ytimg.com/vi/hf7YlHs3G6M/maxresdefault.jpg"
+  },
+  {
+    "id": 19,
+    "name": "KUSKAVOY SHASHLIK",
+    "price": 70000,
+    "cat": "shashlik",
+    "desc": "QUY GUSHTIDAN KUSKAVOY",
+    "badge": "pop",
+    "img": "https://www.centralasia-travel.com/uploads/gallery/499/kebab-03.jpg"
+  },
+  {
+    "id": 20,
+    "name": "POMIDOR SHASHLIK",
+    "price": 10000,
+    "cat": "shashlik",
+    "desc": "MAZZALI PAMIDORCHALAR",
+    "badge": "pop",
+    "img": "https://www.gotovim.ru/pics/sbs/shashpomidches/rec.jpg"
+  },
+  {
+    "id": 21,
+    "name": "KUSKAVOY KAVKAZ SHASHLIK",
+    "price": 70000,
+    "cat": "shashlik",
+    "desc": "QUY GUSHTIDAN KAVKAZ",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/get-altay/15709664/2a00000198648a4a7896207e8abae879feda/XXL_height"
+  },
+  {
+    "id": 22,
+    "name": "GIJDUVON KAVKAZ",
+    "price": 35000,
+    "cat": "shashlik",
+    "desc": "MOL GUSHTIDAN KAVKAZ",
+    "badge": "pop",
+    "img": "https://static.1000.menu/cookme/images/recipe/lulya-kebab-iz-baraninj_1289926599_0.jpg"
+  },
+  {
+    "id": 23,
+    "name": "QUYRUG' SHASHLIK",
+    "price": 15000,
+    "cat": "shashlik",
+    "desc": "QUY DUMBASI",
+    "badge": "pop",
+    "img": "https://imageproxy.wolt.com/menu/menu-images/630cb83afbdbef27a5b7f423/4e62ce64-279c-11ed-9803-ee71e12a3db5_quyrug.jpeg"
+  },
+  {
+    "id": 24,
+    "name": "COCA COLA 1.5L",
+    "price": 17000,
+    "cat": "ichimlik",
+    "desc": "GAZLI ICHIMLIK",
+    "badge": "pop",
+    "img": "https://sc04.alicdn.com/kf/A0a81006e01ac488e8ec63718eac3ab842/Quality-Coca-Cola-330ml-X-24-Cans,-Coca-Cola-1.5-Liter-500ml-20oz-Bottles-Original-Classic-Coke-Soft-Drinks.jpg"
+  },
+  {
+    "id": 25,
+    "name": "COCA COLA 1L",
+    "price": 12000,
+    "cat": "ichimlik",
+    "desc": "GAZLI ICHIMLIK",
+    "badge": "pop",
+    "img": "https://ir.ozone.ru/s3/multimedia-1-w/8929028624.jpg"
+  },
+  {
+    "id": 26,
+    "name": "COCA COLA 0.5L",
+    "price": 8000,
+    "cat": "ichimlik",
+    "desc": "GAZLI ICHIMLIK",
+    "badge": "pop",
+    "img": "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-65/998/308/910/262/320/100061384369b0.jpg"
+  },
+  {
+    "id": 27,
+    "name": "CHALOP",
+    "price": 6000,
+    "cat": "salat",
+    "desc": "MAZZAL CHALOP",
+    "badge": "pop",
+    "img": "https://resizer.mail.ru/p/2376ce7d-9b5e-5e0e-9c33-51cd9a9f56e0/AQAFGpzAAd5Ydif9_ErVEa2VfETuoymgQXGPZezyzFZ78QfzaQmKQ29291XLj-JD9VFHA0BK5n--ZeSOI3AFmefQC58.jpg"
+  },
+  {
+    "id": 28,
+    "name": "GAZLI CHALOP",
+    "price": 10000,
+    "cat": "salat",
+    "desc": "MAZZALI GAZLANGA CHALOP",
+    "badge": "pop",
+    "img": "https://resizer.mail.ru/p/2376ce7d-9b5e-5e0e-9c33-51cd9a9f56e0/AQAFGpzAAd5Ydif9_ErVEa2VfETuoymgQXGPZezyzFZ78QfzaQmKQ29291XLj-JD9VFHA0BK5n--ZeSOI3AFmefQC58.jpg"
+  },
+  {
+    "id": 1782572882477,
+    "name": "SARMAN BOBO JIZI",
+    "price": 220000,
+    "cat": "taom",
+    "desc": "Yumshoq quy gushti.",
+    "badge": "pop",
+    "img": "https://adrastravel.com/wp-content/uploads/2021/04/jiz.jpg"
+  },
+  {
+    "id": 1782583057759,
+    "name": "PEPSI 1.5L",
+    "price": 17000,
+    "cat": "ichimlik",
+    "desc": "GAZLI ICHIMLIK",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/get-mpic/5234464/2a00000192980495ef3789d0e689039c40b4/orig"
+  },
+  {
+    "id": 1782583227842,
+    "name": "PEPSI 1L",
+    "price": 12000,
+    "cat": "ichimlik",
+    "desc": "GAZLI ICHIMLIK",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/get-mpic/5216453/img_id8457527875111799173.png/600x800"
+  },
+  {
+    "id": 1782583267374,
+    "name": "PEPSI 0.5L",
+    "price": 8000,
+    "cat": "ichimlik",
+    "desc": "GAZLI ICHIMLIK",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/i?id=796f66e749f714d77c18a09db82c89f6290c6d13-12164789-images-thumbs&n=13"
+  },
+  {
+    "id": 1782583359041,
+    "name": "SVEJIY SALAT",
+    "price": 12000,
+    "cat": "salat",
+    "desc": "PAMIDOR BODRING KUKAT ARALASHGAN SALAT.",
+    "badge": "pop",
+    "img": "https://i.ytimg.com/vi/WWwhCAIHg2A/maxresdefault.jpg"
+  },
+  {
+    "id": 1782583610341,
+    "name": "SHAKAROB SALAT",
+    "price": 15000,
+    "cat": "salat",
+    "desc": "POMIDOR, BODRING, KUKAT, CHAKKI ARALASHGAN SALAT.",
+    "badge": "pop",
+    "img": "https://avatars.mds.yandex.net/get-sprav-products/1358381/2a000001938101eb90c5a57bfe7e3a5303c1/XXL"
+  },
+  {
+    "id": 1782583673949,
+    "name": "CHAKKI",
+    "price": 5000,
+    "cat": "salat",
+    "desc": "MAZZALI CHAKKI",
+    "badge": "pop",
+    "img": "https://images.gastronom.ru/S3uHQy04PUAjjj5ioz-MXsyIXgkc7xa5m45aa-e-9Hs/pr:product-cover-image/g:ce/rs:auto:0:0:0/L2Ntcy9hbGwtaW1hZ2VzL2I4NDI4ZTExLTc3ODMtNDUyYS05MDQ5LTllODAyZDFiNTY0MS5qcGc.webp"
+  },
+  {
+    "id": 1782583797196,
+    "name": "LIMON",
+    "price": 5000,
+    "cat": "salat",
+    "desc": "LIMON",
+    "badge": "pop",
+    "img": "https://ir.ozone.ru/multimedia/1021379131.jpg"
+  }
+]
