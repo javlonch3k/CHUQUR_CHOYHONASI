@@ -390,15 +390,23 @@ function updateRatingUI(d){
   disp.innerHTML=[1,2,3,4,5].map(i=>`<span class="star-disp" style="color:${i<=avg?'#C8922A':'#ddd'}">★</span>`).join('');
 }
 async function rate(v){
-  myLastRating=v; hilite(v);
-  localStorage.setItem('chuqur_my_rating',v);
-  document.getElementById('rAsk').textContent='Bahoni o\'zgartirish:';
-  const m=document.getElementById('ratedMsg');
-  m.textContent='✅ Bahoingiz: '+'★'.repeat(v);
-  m.style.display='block';
+  const prev=myLastRating; myLastRating=v; hilite(v);
+  try{
+    const body={stars:v}; if(prev>0) body.prevStars=prev;
+    const r=await fetch('/choyhona-api/api/ratings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(d.ok){
+      localStorage.setItem('chuqur_my_rating',v);
+      updateRatingUI(d);
+      document.getElementById('rAsk').textContent='Bahoni o\'zgartirish:';
+      const m=document.getElementById('ratedMsg');
+      m.textContent='✅ Bahoingiz: '+'★'.repeat(v);
+      m.style.display='block';
+    }
+  }catch(e){}
 }
 async function loadRatings(){
-  try{const r=await fetch('./ratings.json');const d=await r.json();updateRatingUI(d);}catch(e){}
+  try{const r=await fetch('/choyhona-api/api/ratings');const d=await r.json();updateRatingUI(d);}catch(e){}
   const s=parseInt(localStorage.getItem('chuqur_my_rating')||'0');
   if(s>0){myLastRating=s;hilite(s);document.getElementById('rAsk').textContent='Bahoni o\'zgartirish:';const m=document.getElementById('ratedMsg');m.textContent='✅ Bahoingiz: '+'★'.repeat(s);m.style.display='block';}
 }
@@ -466,9 +474,9 @@ function openSheet(id){
 async function init(){
   try{
     const [mR,cR,cfR]=await Promise.all([
-      fetch('./menu.json'),
-      fetch('./categories.json'),
-      fetch('./config.json')
+      fetch('/choyhona-api/api/menu'),
+      fetch('/choyhona-api/api/categories'),
+      fetch('/choyhona-api/api/config')
     ]);
     MENU=await mR.json();
     CATS_DATA=await cR.json();

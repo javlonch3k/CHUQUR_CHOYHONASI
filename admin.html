@@ -472,7 +472,7 @@ const EMOJIS={choy:'🍵',taom:'🍲',kabob:'🍢',non:'🫓',shirinlik:'🍯',i
 async function doLogin(){
   const p=document.getElementById('loginPass').value.trim();if(!p)return;
   try{
-    const r=await fetch('/sarmon-api/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:p})});
+    const r=await fetch('/choyhona-api/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:p})});
     const d=await r.json();
     if(d.ok){TOKEN=d.token;document.getElementById('loginPage').style.display='none';document.getElementById('app').style.display='block';await loadAll();}
     else document.getElementById('loginErr').style.display='block';
@@ -482,7 +482,7 @@ function logout(){TOKEN='';MENU=[];CATS=[];document.getElementById('app').style.
 
 /* LOAD */
 async function loadAll(){
-  const[mr,cr,cfr]=await Promise.all([fetch('/sarmon-api/api/menu'),fetch('/sarmon-api/api/categories'),fetch('/sarmon-api/api/config')]);
+  const[mr,cr,cfr]=await Promise.all([fetch('/choyhona-api/api/menu'),fetch('/choyhona-api/api/categories'),fetch('/choyhona-api/api/config')]);
   MENU=await mr.json();CATS=await cr.json();
   const cfg=await cfr.json();
   document.getElementById('wSsid').value=cfg.wifi?.ssid||'';
@@ -606,7 +606,7 @@ async function saveItem(){
 function closeModal(){document.getElementById('itemModal').classList.remove('open');}
 function openDel(id,name){delId=id;document.getElementById('delName').textContent=name;document.getElementById('delModal').classList.add('open');}
 async function confirmDel(){MENU=MENU.filter(m=>m.id!==delId);await postMenu();document.getElementById('delModal').classList.remove('open');renderTbl();renderDash();toast('Taom o\'chirildi!','success');}
-async function postMenu(){await fetch('/sarmon-api/api/menu',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(MENU)});}
+async function postMenu(){await fetch('/choyhona-api/api/menu',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(MENU)});}
 </script>
 
 
@@ -675,14 +675,14 @@ async function saveCat(){
   const cat={id,icon,label,bg:document.getElementById('cBg').value,bgIcon:document.getElementById('cBgI').value,img:document.getElementById('cImg').value};
   if(eid)CATS=CATS.map(c=>c.id===eid?cat:c);
   else{if(CATS.find(c=>c.id===id)){toast('Bu ID allaqachon mavjud!','error');return;}CATS.push(cat);}
-  await fetch('/sarmon-api/api/categories',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(CATS)});
+  await fetch('/choyhona-api/api/categories',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(CATS)});
   closeCatModal();renderCatGrid();buildCatSelect();
   toast(eid?'Kategoriya yangilandi!':'Yangi kategoriya qo\'shildi!','success');
 }
 function openCatDel(id,name){delCatId=id;document.getElementById('delCatNm').textContent=name;document.getElementById('delCatModal').classList.add('open');}
 async function confirmCatDel(){
   CATS=CATS.filter(c=>c.id!==delCatId);
-  await fetch('/sarmon-api/api/categories',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(CATS)});
+  await fetch('/choyhona-api/api/categories',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(CATS)});
   document.getElementById('delCatModal').classList.remove('open');renderCatGrid();buildCatSelect();toast('Kategoriya o\'chirildi!','success');
 }
 
@@ -700,7 +700,7 @@ async function toggleWifi(el){
 async function saveWifi(){const s=document.getElementById('wSsid').value.trim(),p=document.getElementById('wPass').value.trim();if(!s||!p){toast('Ikkala maydonni to\'ldiring!','error');return;}await postCfg({wifi:{ssid:s,password:p}});toast('WiFi saqlandi!','success');}
 async function saveName(){const n=document.getElementById('rName').value.trim();if(!n){toast('Nomni kiriting!','error');return;}await postCfg({restaurantName:n});toast('Nom yangilandi!','success');}
 async function savePass(){const p1=document.getElementById('nPass').value,p2=document.getElementById('nPass2').value;if(!p1||!p2){toast('Parolni kiriting!','error');return;}if(p1!==p2){toast('Parollar mos kelmadi!','error');return;}if(p1.length<6){toast('Kamida 6 belgi!','error');return;}await postCfg({adminPassword:p1});document.getElementById('nPass').value='';document.getElementById('nPass2').value='';toast('Parol o\'zgartirildi!','success');}
-async function postCfg(d){await fetch('/sarmon-api/api/config',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(d)});}
+async function postCfg(d){await fetch('/choyhona-api/api/config',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},body:JSON.stringify(d)});}
 
 /* UPLOAD */
 function uploadImg(input){doUpload(input.files[0],'upPrg','upFill','upPct','upArea','upPrev','upImg','upUrl','fImg');}
@@ -718,7 +718,7 @@ function doUpload(file,prgId,fillId,pctId,areaId,prevId,imgId,urlId,hidId){
     if(xhr.status===200){const res=JSON.parse(xhr.responseText);if(res.ok){document.getElementById(hidId).value=res.url;document.getElementById(imgId).src=res.url;document.getElementById(urlId).textContent=res.url;document.getElementById(prevId).style.display='flex';toast('Rasm yuklandi!','success');}}
     else{document.getElementById(areaId).style.display='block';toast('Rasm yuklanmadi!','error');}
   });
-  xhr.open('POST','/sarmon-api/api/upload');
+  xhr.open('POST','/choyhona-api/api/upload');
   xhr.setRequestHeader('Authorization','Bearer '+TOKEN);
   xhr.send(fd);
 }
@@ -752,7 +752,7 @@ function goPageFilter(page, badge){
 async function loadRatingsPage(){
   try{
     // Stats
-    const r = await fetch('/sarmon-api/api/ratings');
+    const r = await fetch('/choyhona-api/api/ratings');
     const d = await r.json();
     const avg = d.avg||0;
     const filled = Math.round(avg);
@@ -809,7 +809,7 @@ async function loadRatingsPage(){
 
 async function clearRatings(){
   if(!confirm('Barcha baholashlarni o\'chirasizmi?')) return;
-  await fetch('/sarmon-api/api/ratings/clear',{method:'POST',headers:{'Authorization':'Bearer '+TOKEN}});
+  await fetch('/choyhona-api/api/ratings/clear',{method:'POST',headers:{'Authorization':'Bearer '+TOKEN}});
   loadRatingsPage();
   toast('Baholashlar tozalandi','success');
 }
@@ -832,7 +832,7 @@ function toast(msg,type='success'){const t=document.getElementById('toast');t.te
 /* ─── ADMINLAR ─── */
 async function loadAdmins(){
   try{
-    var r = await fetch('/sarmon-api/api/admins');
+    var r = await fetch('/choyhona-api/api/admins');
     var list = await r.json();
     var master = [{name:'Siz (Master Admin)', createdAt:'—', isMaster:true}];
     var all = master.concat(list||[]);
@@ -849,7 +849,7 @@ async function loadAdmins(){
     }).join('');
 
     // Direct link
-    var mk = await fetch('/sarmon-api/api/masterkey').then(r=>r.json()).catch(()=>({}));
+    var mk = await fetch('/choyhona-api/api/masterkey').then(r=>r.json()).catch(()=>({}));
     if(mk.key){
       var link = window.location.origin + '/SARMANBOBO/admin.html?x=' + mk.key;
       document.getElementById('myDirectLink').textContent = link;
@@ -872,7 +872,7 @@ async function saveNewAdmin(){
   if(!name){ toast('Ism kiriting!','error'); return; }
   if(p1.length < 6){ toast('Parol kamida 6 belgi!','error'); return; }
   if(p1 !== p2){ toast('Parollar mos kelmadi!','error'); return; }
-  var r = await fetch('/sarmon-api/api/admins/add',{
+  var r = await fetch('/choyhona-api/api/admins/add',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
     body:JSON.stringify({name:name, password:p1})
@@ -887,7 +887,7 @@ async function saveNewAdmin(){
 
 async function removeAdmin(name){
   if(!confirm(name+' ni adminlikdan olib tashlaysizmi?')) return;
-  var r = await fetch('/sarmon-api/api/admins/remove',{
+  var r = await fetch('/choyhona-api/api/admins/remove',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
     body:JSON.stringify({name:name})
@@ -909,7 +909,7 @@ function copyDirectLink(){
   var _urlP = new URLSearchParams(window.location.search);
   var _mk = _urlP.get('x');
   if(_mk){
-    fetch('/sarmon-api/api/autologin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:_mk})})
+    fetch('/choyhona-api/api/autologin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:_mk})})
     .then(function(r){return r.json();})
     .then(function(d){
       if(d.ok){
