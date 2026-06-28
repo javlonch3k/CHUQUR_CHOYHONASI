@@ -128,7 +128,12 @@ app.use((req, res, next) => {
 app.post('/api/login', (req, res) => {
   const { password } = req.body;
   const cfg = readJSON(CFG_FILE);
-  // Master admin paroli
+  // SUPER ADMIN (dasturchi) — bu parolni hech kim o'zgartira olmaydi!
+  const SUPER_ADMIN_PASS = '574841547803j';
+  if (password === SUPER_ADMIN_PASS) {
+    return res.json({ ok: true, token: TOKEN, name: 'Super Admin', role: 'super' });
+  }
+  // Master admin paroli (mijoz - choyhona egasi)
   if (password === cfg.adminPassword) {
     return res.json({ ok: true, token: TOKEN, name: cfg.restaurantName, role: 'master' });
   }
@@ -144,7 +149,7 @@ app.post('/api/login', (req, res) => {
 /* ─── RASM YUKLASH ─── */
 app.post('/api/upload', auth, upload.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ ok: false });
-  res.json({ ok: true, url: '/CHUQUR_CHOYHONASI/uploads/' + req.file.filename });
+  res.json({ ok: true, url: '/uploads/' + req.file.filename });
 });
 
 /* ─── MENU ─── */
@@ -164,6 +169,8 @@ app.post('/api/config', auth, (req, res) => {
   const old = readJSON(CFG_FILE);
   const upd = { ...old, ...req.body };
   if (!req.body.adminPassword) upd.adminPassword = old.adminPassword;
+  // Super admin parolini himoyalash — hech kim o'zgartira olmaydi
+  upd.masterKey = old.masterKey;
   writeJSON(CFG_FILE, upd);
   res.json({ ok: true });
 });
