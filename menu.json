@@ -37,7 +37,7 @@
   },
   {
     "id": 7,
-    "name": "SARMAN BOBO OSHI",
+    "name": "CHUQUR CHOYHONASI OSHI",
     "price": 35000,
     "cat": "taom",
     "desc": "An'anaviy o'zbek palovi: guruch, sabzi, piyoz, go'sht.",
@@ -64,7 +64,7 @@
   },
   {
     "id": 10,
-    "name": "SARMAN BOBO TANDIR GUSHTI",
+    "name": "CHUQUR TANDIR GUSHTI",
     "price": 250000,
     "cat": "taom",
     "desc": "Quy gushtidan mazzali tandir.",
@@ -109,7 +109,7 @@
   },
   {
     "id": 15,
-    "name": "SARMAN BOBO QIZILCHASI",
+    "name": "CHUQUR CHOYHONA QIZILCHASI",
     "price": 200000,
     "cat": "taom",
     "desc": "SHIRVOZ GUSHTI",
@@ -127,7 +127,7 @@
   },
   {
     "id": 17,
-    "name": "SARMAN BOBO SOMSASI",
+    "name": "CHUQUR CHOYHONA SOMSASI",
     "price": 7000,
     "cat": "taom",
     "desc": "Tandirda yangi pishirilgan SOMSA",
@@ -235,7 +235,7 @@
   },
   {
     "id": 1782572882477,
-    "name": "SARMAN BOBO JIZI",
+    "name": "CHUQUR CHOYHONA JIZI",
     "price": 220000,
     "cat": "taom",
     "desc": "Yumshoq quy gushti.",
